@@ -1,0 +1,15 @@
+<h4 class="text-success text-center mb-3">Brands</h4>
+<table class="table table-light table-bordered table-hover text-center">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let brand of brands">
+      <td>{{ brand.id }}</td>
+      <td>{{ brand.name }}</td>
+    </tr>
+  </tbody>
+</table>

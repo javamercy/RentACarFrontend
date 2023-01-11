@@ -1,0 +1,15 @@
+<h4 class="text-success text-center my-3">Colors</h4>
+<table class="table table-light table-bordered table-hover text-center">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let color of colors">
+      <td>{{ color.id }}</td>
+      <td>{{ color.name }}</td>
+    </tr>
+  </tbody>
+</table>
