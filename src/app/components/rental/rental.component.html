@@ -3,9 +3,7 @@
   <thead>
     <tr>
       <th>RentalId</th>
-      <th>CustomerId</th>
-      <th>CarId</th>
-      <th>CarDescription</th>
+      <th>BrandName</th>
       <th>CustomerFullName</th>
       <th>RentDate</th>
       <th>ReturnDate</th>
@@ -14,12 +12,11 @@
   <tbody>
     <tr *ngFor="let rental of rentalsByDetails">
       <td>{{ rental.rentalId }}</td>
-      <td>{{ rental.customerId }}</td>
-      <td>{{ rental.carId }}</td>
       <td>{{ rental.carDescription }}</td>
       <td>{{ rental.customerFullName }}</td>
-      <td>{{ rental.rentDate }}</td>
-      <td>{{ rental.returnDate }}</td>
+      <td>{{ rental.rentDate | date }}</td>
+      <td>{{ rental.returnDate | date }}</td>
     </tr>
   </tbody>
 </table>
+

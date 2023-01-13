@@ -19,6 +19,8 @@ export class RentalComponent implements OnInit {
     this.getAllByDetails();
   }
 
+
+
   getAll(): void {
     this.rentalService.getAll().subscribe({
       next: (response) => (this.rentals = response.data),

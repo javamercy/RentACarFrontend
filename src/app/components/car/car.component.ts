@@ -19,6 +19,10 @@ export class CarComponent implements OnInit {
     this.getAllByDetails();
   }
 
+  log(any: any): void {
+    console.log(any);
+  }
+
   getAll(): void {
     this.carService.getAll().subscribe({
       next: (response) => {
@@ -32,6 +36,7 @@ export class CarComponent implements OnInit {
     this.carService.getAllByDetails().subscribe({
       next: (response) => {
         this.carsByDetails = response.data;
+        this.log(this.carsByDetails);
       },
       error: (err) => console.error(err),
     });
