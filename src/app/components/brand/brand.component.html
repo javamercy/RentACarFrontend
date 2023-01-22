@@ -1,15 +1,22 @@
 <h4 class="text-success text-center mb-3">Brands</h4>
-<table class="table table-light table-bordered table-hover text-center">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let brand of brands">
-      <td>{{ brand.id }}</td>
-      <td>{{ brand.name }}</td>
-    </tr>
-  </tbody>
-</table>
+<ul class="list-group text-center">
+  <li
+    class="list-group-item"
+    role="button"
+    routerLink="cars"
+    (click)="isAllBrands = true"
+    [class.active]="isAllBrands"
+  >
+    All Brands
+  </li>
+  <li
+    class="list-group-item"
+    [class.active]="isSelectedBrand(brand) && !isAllBrands"
+    role="button"
+    *ngFor="let brand of brands"
+    (click)="setSelectedBrand(brand); isAllBrands = false"
+    routerLink="cars/brand/{{ brand.id }}"
+  >
+    {{ brand.name }}
+  </li>
+</ul>

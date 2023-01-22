@@ -8,8 +8,9 @@ import { BrandService } from 'src/app/services/brand.service';
   styleUrls: ['./brand.component.css'],
 })
 export class BrandComponent implements OnInit {
-  brands: Brand[] = [];
-
+  brands: Brand[];
+  selectedBrand: Brand;
+  isAllBrands: boolean = false;
   constructor(private brandService: BrandService) {}
 
   ngOnInit(): void {
@@ -22,5 +23,13 @@ export class BrandComponent implements OnInit {
 
       error: (err) => console.error(err),
     });
+  }
+
+  setSelectedBrand(brand: Brand): void {
+    this.selectedBrand = brand;
+  }
+
+  isSelectedBrand(brand: Brand): boolean {
+    return this.selectedBrand == brand;
   }
 }

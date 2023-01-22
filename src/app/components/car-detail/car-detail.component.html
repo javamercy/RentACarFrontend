@@ -1,0 +1,69 @@
+<div *ngIf="carByDetails" class="row p-3">
+  <div
+    id="carouselExampleInterval"
+    class="carousel slide col-md-8"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <div
+        class="carousel-item border rounded p-2"
+        list-group-item-success
+        [class.active]="isActiveImage(imagePath)"
+        data-bs-interval="5000"
+        *ngFor="let imagePath of carByDetails['imagePaths']"
+      >
+        <img
+          src="{{ API_URL + imagePath }}"
+          class="d-block w-100 rounded"
+          alt="carByDetails.carDescription"
+        />
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleInterval"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleInterval"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="col-md-4 align-self-center">
+    <div class="list-group text-center">
+      <div class="list-group-item list-group-item-success">
+        <div class="row">
+          <span class="fw-bolder text-start col">Brand</span>
+          <span class="text-end col">{{ carByDetails.brandName }}</span>
+        </div>
+      </div>
+      <div class="list-group-item list-group-item-success">
+        <div class="row">
+          <span class="fw-bolder text-start col">Car</span>
+          <span class="text-end col">{{ carByDetails.carDescription }}</span>
+        </div>
+      </div>
+      <div class="list-group-item list-group-item-success">
+        <div class="row">
+          <span class="fw-bolder text-start col">Model Year</span>
+          <span class="text-end col">{{ carByDetails.modelYear }}</span>
+        </div>
+      </div>
+      <div class="list-group-item list-group-item-success">
+        <div class="row">
+          <span class="fw-bolder text-start col">Daily Price</span>
+          <span class="text-end col">{{ carByDetails.dailyPrice | currency }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

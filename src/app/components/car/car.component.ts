@@ -1,6 +1,10 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Car } from 'src/app/models/car';
 import { CarDetailDto } from 'src/app/models/carDetailDto';
+import { CarImage } from 'src/app/models/carImage';
+import { CarImageService } from 'src/app/services/car-image.service';
 import { CarService } from 'src/app/services/car.service';
 
 @Component({
@@ -9,14 +13,31 @@ import { CarService } from 'src/app/services/car.service';
   styleUrls: ['./car.component.css'],
 })
 export class CarComponent implements OnInit {
+  API_URL: string = 'http://localhost:5304/';
   cars: Car[] = [];
-  carsByDetails: CarDetailDto[] = [];
+  carsByDetails: CarDetailDto[];
+  carImages: CarImage[];
 
-  constructor(private carService: CarService) {}
+  constructor(
+    private carService: CarService,
+    private carImageService: CarImageService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.getAll();
-    this.getAllByDetails();
+    this.activatedRoute.params.subscribe((param) => {
+      let brandId: number = param['brandId'];
+      let colorId: number = param['colorId'];
+      if (brandId && colorId) {
+        this.getAllByDetailsByBrandIdAndColorId(brandId, colorId);
+      } else if (brandId) {
+        this.getAllByDetailsByBrandId(brandId);
+      } else if (colorId) {
+        this.getAllByDetailsByColorId(colorId);
+      } else {
+        this.getAllByDetails();
+      }
+    });
   }
 
   log(any: any): void {
@@ -36,8 +57,44 @@ export class CarComponent implements OnInit {
     this.carService.getAllByDetails().subscribe({
       next: (response) => {
         this.carsByDetails = response.data;
-        this.log(this.carsByDetails);
       },
+      error: (err) => console.error(err),
+    });
+  }
+
+  getAllByDetailsByBrandId(brandId: number): void {
+    this.carService.getAllByDetailsByBrandId(brandId).subscribe({
+      next: (response) => {
+        this.carsByDetails = response.data;
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  getAllByDetailsByColorId(colorId: number): void {
+    this.carService.getAllByDetailsByColorId(colorId).subscribe({
+      next: (response) => {
+        this.carsByDetails = response.data;
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  getAllByDetailsByBrandIdAndColorId(brandId: number, colorId: number): void {
+    this.carService
+      .getAllByDetailsByBrandIdAndColorId(brandId, colorId)
+      .subscribe({
+        next: (response) => {
+          this.carsByDetails = response.data;
+        },
+        error: (err) => console.error(err),
+      });
+  }
+
+  getCarImages() {
+    this.carImageService.getAll().subscribe({
+      next: (response) => (this.carImages = response.data),
+
       error: (err) => console.error(err),
     });
   }

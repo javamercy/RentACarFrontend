@@ -1,15 +1,22 @@
 <h4 class="text-success text-center my-3">Colors</h4>
-<table class="table table-light table-bordered table-hover text-center">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let color of colors">
-      <td>{{ color.id }}</td>
-      <td>{{ color.name }}</td>
-    </tr>
-  </tbody>
-</table>
+<ul class="list-group text-center">
+  <li
+    class="list-group-item"
+    role="button"
+    routerLink="cars"
+    (click)="isAllColors = true"
+    [class.active]="isAllColors"
+  >
+    All Colors
+  </li>
+  <li
+    class="list-group-item"
+    [class.active]="isSelectedColor(color) && !isAllColors"
+    role="button"
+    *ngFor="let color of colors"
+    (click)="setSelectedColor(color); isAllColors = false"
+    routerLink="cars/color/{{ color.id }}"
+  >
+    {{ color.name }}
+  </li>
+</ul>
