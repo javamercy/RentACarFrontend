@@ -1,0 +1,90 @@
+<div
+  class="modal fade"
+  tabindex="-1"
+  aria-hidden="true"
+  id="datePickerModal"
+  *ngIf="carToRent"
+>
+  <div class="modal-lg modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center bg-light">
+        <h4 class="modal-title text-center">
+          {{ carToRent.carDescription }}
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="w-50 mx-auto">
+          <img
+            [src]="API_URL + carToRent.imagePaths[0]"
+            [alt]="carToRent.carDescription"
+            class="img-thumbnail"
+          />
+        </div>
+      </div>
+      <div class="modal-body">
+        <ngb-datepicker
+          #dp
+          (dateSelect)="onDateSelection($event)"
+          [displayMonths]="2"
+          [dayTemplate]="t"
+          outsideDays="hidden"
+          [minDate]="rentDate"
+        >
+        </ngb-datepicker>
+
+        <!-- <div class="col-md-3">
+            <table
+              class="table table-sm w-25 mx-auto mb-0 bg-success text-light"
+              [class.w-50]="returnDate"
+            >
+              <thead>
+                <tr>
+                  <th class="border-end">Rent Date</th>
+                  <th *ngIf="returnDate">Return Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border-end">
+                    {{ rentDate.day }}/{{ rentDate.month }}/{{ rentDate.year }}
+                  </td>
+                  <td *ngIf="returnDate">
+                    {{ returnDate.day }}/{{ returnDate.month }}/{{
+                      returnDate.year
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div> -->
+      </div>
+      <div><hr class="hr" /></div>
+      <div class="modal-footer bg-info">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          routerLink="/payment/{{ carToRent.carId }}"
+          data-bs-dismiss="modal"
+        >
+          Rent
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #t let-date let-focused="focused">
+  <span
+    class="custom-day"
+    [class.focused]="focused"
+    [class.range]="isRange(date)"
+    [class.faded]="isHovered(date) || isInside(date)"
+    (mouseenter)="hoveredDate = date"
+    (mouseleave)="hoveredDate = null"
+  >
+    {{ date.day }}
+  </span>
+</ng-template>

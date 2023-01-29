@@ -1,0 +1,13 @@
+<app-brand #brandComponent></app-brand>
+<app-color #colorComponent></app-color>
+<div class="d-grid col-5 mx-auto my-3">
+  <button
+    type="button"
+    class="btn btn-dark btn-block"
+    [routerLink]="
+      getRouterLink(brandComponent.selectedBrandId, colorComponent.selectedColorId)
+    "
+  >
+    Filter
+  </button>
+</div>

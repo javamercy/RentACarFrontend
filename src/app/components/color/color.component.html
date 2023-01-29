@@ -1,22 +1,12 @@
-<h4 class="text-success text-center my-3">Colors</h4>
-<ul class="list-group text-center">
-  <li
-    class="list-group-item"
-    role="button"
-    routerLink="cars"
-    (click)="isAllColors = true"
-    [class.active]="isAllColors"
-  >
-    All Colors
-  </li>
-  <li
-    class="list-group-item"
-    [class.active]="isSelectedColor(color) && !isAllColors"
-    role="button"
-    *ngFor="let color of colors"
-    (click)="setSelectedColor(color); isAllColors = false"
-    routerLink="cars/color/{{ color.id }}"
-  >
+<h5 class="my-3 text-center">Filter By Color</h5>
+<select
+  class="form-select"
+  #selectColor
+  aria-label="select"
+  (change)="setSelectedColor(+selectColor.value)"
+>
+  <option [value]="" class="text-center">ALL</option>
+  <option [value]="color.id" *ngFor="let color of colors" class="text-center">
     {{ color.name }}
-  </li>
-</ul>
+  </option>
+</select>

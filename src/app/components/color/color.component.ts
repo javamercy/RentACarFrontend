@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Color } from 'src/app/models/color';
 import { ColorService } from 'src/app/services/color.service';
@@ -10,7 +11,7 @@ import { ColorService } from 'src/app/services/color.service';
 })
 export class ColorComponent implements OnInit {
   colors: Color[];
-  selectedColor: Color;
+  selectedColorId: number;
   isAllColors: boolean = false;
 
   constructor(
@@ -30,11 +31,11 @@ export class ColorComponent implements OnInit {
     });
   }
 
-  setSelectedColor(color: Color): void {
-    this.selectedColor = color;
+  setSelectedColor(colorId: number): void {
+    this.selectedColorId = colorId;
   }
 
   isSelectedColor(color: Color): boolean {
-    return this.selectedColor == color;
+    return this.selectedColorId == color.id;
   }
 }

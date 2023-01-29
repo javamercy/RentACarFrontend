@@ -1,5 +1,13 @@
 <div class="row justify-content-center gap-4">
-  <div class="card col-md-3 px-0" *ngFor="let car of carsByDetails">
+  <app-filter-brand-color #filterBrandColor></app-filter-brand-color>
+  <div
+    class="card col-md-3 px-0"
+    *ngFor="
+      let car of carsByDetails
+        | filterColor : filterBrandColor.colorFilterText
+        | filterBrand : filterBrandColor.brandFilterText
+    "
+  >
     <img
       src="http://localhost:5304/{{ car.imagePaths[0] }}"
       class="card-img-top"

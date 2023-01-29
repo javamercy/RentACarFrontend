@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Car } from 'src/app/models/car';
@@ -14,7 +13,7 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class CarComponent implements OnInit {
   API_URL: string = 'http://localhost:5304/';
-  cars: Car[] = [];
+  cars: Car[];
   carsByDetails: CarDetailDto[];
   carImages: CarImage[];
 

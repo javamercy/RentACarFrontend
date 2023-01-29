@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { Brand } from 'src/app/models/brand';
-import { BrandService } from 'src/app/services/brand.service';
+import { Component, OnInit } from "@angular/core";
+import { Brand } from "src/app/models/brand";
+import { BrandService } from "src/app/services/brand.service";
 
 @Component({
-  selector: 'app-brand',
-  templateUrl: './brand.component.html',
-  styleUrls: ['./brand.component.css'],
+  selector: "app-brand",
+  templateUrl: "./brand.component.html",
+  styleUrls: ["./brand.component.css"],
 })
 export class BrandComponent implements OnInit {
   brands: Brand[];
-  selectedBrand: Brand;
+  selectedBrandId: number;
   isAllBrands: boolean = false;
   constructor(private brandService: BrandService) {}
 
   ngOnInit(): void {
     this.getAll();
+  }
+
+  log(any: any): void {
+    console.log(any);
   }
 
   getAll(): void {
@@ -25,11 +29,11 @@ export class BrandComponent implements OnInit {
     });
   }
 
-  setSelectedBrand(brand: Brand): void {
-    this.selectedBrand = brand;
+  setSelectedBrandId(brandId: number): void {
+    this.selectedBrandId = brandId;
   }
 
   isSelectedBrand(brand: Brand): boolean {
-    return this.selectedBrand == brand;
+    return this.selectedBrandId == brand.id;
   }
 }

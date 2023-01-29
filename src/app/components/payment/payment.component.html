@@ -1,0 +1,63 @@
+<form #paymentForm class="form text-center">
+  <div class="form-group">
+    <label class="my-3" for="firstName">First Name</label>
+    <input
+      type="text"
+      id="firstName"
+      name="firstName"
+      class="form-control mx-auto w-50"
+      [(ngModel)]="payment.firstName"
+    />
+  </div>
+
+  <div class="form-group">
+    <label class="my-3" for="lastName">Last Name</label>
+    <input
+      type="text"
+      id="lastName"
+      name="lastName"
+      class="form-control mx-auto w-50"
+      [(ngModel)]="payment.lastName"
+    />
+  </div>
+
+  <div class="form-group">
+    <label class="my-3" for="cardNumber">Card Number</label>
+    <input
+      type="number"
+      id="cardNumber"
+      name="cardNumber"
+      class="form-control mx-auto w-50"
+      [(ngModel)]="payment.cardNumber"
+    />
+  </div>
+
+  <div class="form-group">
+    <label class="my-3" for="expiringMonth">Expiring Month</label>
+    <input
+      type="number"
+      id="expiringMonth"
+      name="expiringMonth"
+      class="form-control mx-auto w-50"
+      [(ngModel)]="payment.expiringMonth"
+    />
+  </div>
+
+  <div class="form-group">
+    <label class="my-3" for="expiringYear">Expiring Year</label>
+    <input
+      type="number"
+      id="expiringYear"
+      name="expiringYear"
+      class="form-control mx-auto w-50"
+      [(ngModel)]="payment.expiringYear"
+    />
+  </div>
+  <button
+    type="button"
+    class="btn btn-success mt-3"
+    (click)="addPayment(payment)"
+  >
+    Complete Payment
+  </button>
+</form>
