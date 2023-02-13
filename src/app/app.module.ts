@@ -55,12 +55,7 @@ import { ToastrModule } from "ngx-toastr";
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      preventDuplicates: true,
-      closeButton: true,
-      positionClass: "toast-bottom-right",
-    }),
+
   ],
   providers: [],
   bootstrap: [AppComponent],
