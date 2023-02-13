@@ -1,0 +1,45 @@
+.sport-car-img {
+  width: 150px;
+  aspect-ratio: 1;
+}
+
+.sport-car-img img {
+  object-fit: cover;
+}
+
+.login-form {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input:focus {
+  box-shadow: none;
+  border: 1px solid #ced4da;
+}
+
+.form-signin input[type="email"],
+.form-signin input[id="floatingFirstName"],
+.form-signin input[id="floatingLastName"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"],
+.form-signin input[type="email"],
+.form-signin input[id="floatingLastName"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

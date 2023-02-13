@@ -1,0 +1,15 @@
+.nav-item:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.underlined:hover {
+  text-decoration: underline;
+  text-decoration-color: inherit;
+}
+
+.signup {
+  transition: opacity 0.1s ease-in-out;
+}
+.signup:hover {
+  opacity: 0.85;
+}

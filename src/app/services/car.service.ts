@@ -1,16 +1,19 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 import { Car } from "../models/car";
 import { CarDetailDto } from "../models/carDetailDto";
 import { ListResponseModel } from "../models/listResponseModel";
+import { ResponseModel } from "../models/responseModel";
 import { SingleResponseModel } from "../models/singleResponseModel";
 
 @Injectable({
   providedIn: "root",
 })
 export class CarService {
-  private apiUrl: string = "http://localhost:5304/api";
+  private apiUrl: string = environment.apiUrl;
+
   constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<ListResponseModel<Car>> {
@@ -70,5 +73,11 @@ export class CarService {
       this.apiUrl + "/cars/getcardetailsbycarid?carid=" + carId;
 
     return this.httpClient.get<SingleResponseModel<CarDetailDto>>(newUrl);
+  }
+
+  add(car: Car): Observable<ResponseModel> {
+    let newUrl: string = this.apiUrl + "/cars/add";
+
+    return this.httpClient.post<ResponseModel>(newUrl, car);
   }
 }
