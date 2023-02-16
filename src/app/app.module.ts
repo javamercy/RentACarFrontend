@@ -25,7 +25,6 @@ import { LoginComponent } from "./components/auth/login/login.component";
 import { SingupComponent } from "./components/auth/singup/singup.component";
 import { HomeComponent } from "./components/home/home.component";
 import { FooterComponent } from "./components/footer/footer.component";
-import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [

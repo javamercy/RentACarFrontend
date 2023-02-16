@@ -6,12 +6,12 @@ import { Injectable } from "@angular/core";
 export class LocalStorageService {
   constructor() {}
 
-  add(key: string, value: string): void {
+  add(key: string, value: any): void {
     if (localStorage.getItem(key)) {
       localStorage.removeItem(key);
     }
 
-    localStorage.setItem(key, value);
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
   remove(key: string): void {
@@ -19,20 +19,19 @@ export class LocalStorageService {
   }
 
   removeAtSpesificTime(key: string, expiration: string) {
-    let miliseconds: number =
-      new Date(expiration).getMilliseconds() - Date.now();
+    let miliseconds: number = new Date(expiration).getTime() - Date.now();
 
     setTimeout(() => {
       localStorage.removeItem(key);
     }, miliseconds);
   }
 
-  update(key: string, value: string): void {
+  update(key: string, value: any): void {
     localStorage.removeItem(key);
-    localStorage.setItem(key, value);
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
-  get(key: string): string {
-    return localStorage.getItem(key);
+  get(key: string): any {
+    return JSON.parse(localStorage.getItem(key));
   }
 }

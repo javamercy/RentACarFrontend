@@ -7,7 +7,7 @@
         class="w-100"
       />
     </div>
-    <form>
+    <form [formGroup]="loginForm">
       <h1 class="h3 mb-3 fw-normal text-white">Log in</h1>
 
       <div class="form-floating">
@@ -16,6 +16,7 @@
           class="form-control"
           id="floatingSigninEmail"
           placeholder="name@example.com"
+          formControlName="email"
         />
         <label for="floatingSigninEmail">Email address</label>
       </div>
@@ -25,6 +26,7 @@
           class="form-control"
           id="floatingSigninPassword"
           placeholder="Password"
+          formControlName="password"
         />
         <label for="floatingSigninPassword">Password</label>
       </div>
@@ -37,7 +39,7 @@
       <button
         class="w-100 btn btn-lg btn-outline-light my-3"
         type="button"
-
+        (click)="login()"
       >
         Log in
       </button>

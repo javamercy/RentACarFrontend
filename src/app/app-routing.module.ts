@@ -11,6 +11,7 @@ import { PaymentComponent } from "./components/payment/payment.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
+  { path: "home", pathMatch: "full", component: HomeComponent },
   {
     path: "",
     component: AuthComponent,
