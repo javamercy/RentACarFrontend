@@ -1,13 +1,58 @@
-<app-brand #brandComponent></app-brand>
-<app-color #colorComponent></app-color>
-<div class="d-grid col-5 mx-auto my-3">
-  <button
-    type="button"
-    class="btn btn-dark btn-block"
-    [routerLink]="
-      getRouterLink(brandComponent.selectedBrandId, colorComponent.selectedColorId)
-    "
-  >
-    Filter
-  </button>
+<div class="w-75 my-5 mx-auto bg-dark p-3 rounded">
+  <h5 class="text-center text-light my-4 fs-3">Filter</h5>
+  <form [formGroup]="filterForm">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <h6 class="text-muted fw-bolder text-center">select brand</h6>
+        <select class="form-select mt-2" formControlName="brand">
+          <ng-container *ngFor="let brand of brands">
+            <option [ngValue]="brand">
+              {{ brand.name | titlecase }}
+            </option>
+          </ng-container>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <h6 class="text-muted fw-bolder text-center">select color</h6>
+        <select class="form-select mt-2" formControlName="color">
+          <ng-container *ngFor="let color of colors">
+            <option [ngValue]="color">
+              {{ color.name | titlecase }}
+            </option>
+          </ng-container>
+        </select>
+      </div>
+
+      <div class="col-md-1 align-self-end">
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            [routerLink]="getRouterLink()"
+          >
+            Filter
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            routerLink="/cars"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <hr class="hr text-light" />
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <input
+        type="text"
+        class="form-control my-2"
+        placeholder="search car"
+        [(ngModel)]="filterText"
+      />
+    </div>
+  </div>
 </div>

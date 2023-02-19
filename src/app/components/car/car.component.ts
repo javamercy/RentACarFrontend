@@ -1,100 +1,59 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Car } from 'src/app/models/car';
-import { CarDetailDto } from 'src/app/models/carDetailDto';
-import { CarImage } from 'src/app/models/carImage';
-import { CarImageService } from 'src/app/services/carImage.service';
-import { CarService } from 'src/app/services/car.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Car } from "src/app/models/car";
+import { CarDetailDto } from "src/app/models/carDetailDto";
+import { CarImage } from "src/app/models/carImage";
+import { CarImageService } from "src/app/services/carImage.service";
+import { CarService } from "src/app/services/car.service";
+import { environment } from "src/environments/environment";
 
 @Component({
-  selector: 'app-car',
-  templateUrl: './car.component.html',
-  styleUrls: ['./car.component.css'],
+  selector: "app-car",
+  templateUrl: "./car.component.html",
+  styleUrls: ["./car.component.css"],
 })
 export class CarComponent implements OnInit {
-  API_URL: string = 'http://localhost:5304/';
-  cars: Car[];
-  carsByDetails: CarDetailDto[];
-  carImages: CarImage[];
+  cars: CarDetailDto[];
+  apiCarImagesUrl: string = environment.apiCarImagesUrl;
 
   constructor(
     private carService: CarService,
-    private carImageService: CarImageService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((param) => {
-      let brandId: number = param['brandId'];
-      let colorId: number = param['colorId'];
-      if (brandId && colorId) {
-        this.getAllByDetailsByBrandIdAndColorId(brandId, colorId);
-      } else if (brandId) {
-        this.getAllByDetailsByBrandId(brandId);
-      } else if (colorId) {
-        this.getAllByDetailsByColorId(colorId);
-      } else {
-        this.getAllByDetails();
-      }
-    });
+    this.getCarsByDetails();
   }
 
-  log(any: any): void {
-    console.log(any);
-  }
-
-  getAll(): void {
-    this.carService.getAll().subscribe({
-      next: (response) => {
-        this.cars = response.data;
-      },
-      error: (err) => console.error(err),
-    });
-  }
-
-  getAllByDetails(): void {
+  getCarsByDetails() {
     this.carService.getAllByDetails().subscribe({
       next: (response) => {
-        this.carsByDetails = response.data;
+        this.cars = this.getCarsByActivatedRoute(response.data);
       },
+
       error: (err) => console.error(err),
     });
   }
 
-  getAllByDetailsByBrandId(brandId: number): void {
-    this.carService.getAllByDetailsByBrandId(brandId).subscribe({
-      next: (response) => {
-        this.carsByDetails = response.data;
-      },
-      error: (err) => console.error(err),
+  getCarsByActivatedRoute(cars: CarDetailDto[]) {
+    let filteredCars: CarDetailDto[];
+
+    this.activatedRoute.params.subscribe((params) => {
+      let colorId: number = params["colorId"];
+      let brandId: number = params["brandId"];
+      console.log(params);
+
+      if (colorId && brandId) {
+        filteredCars = cars.filter(
+          (c) => c.colorId == colorId && c.brandId == brandId
+        );
+      } else if (colorId) {
+        filteredCars = cars.filter((c) => c.colorId == colorId);
+      } else if (brandId) {
+        filteredCars = cars.filter((c) => c.brandId == brandId);
+      } else filteredCars = cars;
     });
-  }
 
-  getAllByDetailsByColorId(colorId: number): void {
-    this.carService.getAllByDetailsByColorId(colorId).subscribe({
-      next: (response) => {
-        this.carsByDetails = response.data;
-      },
-      error: (err) => console.error(err),
-    });
-  }
-
-  getAllByDetailsByBrandIdAndColorId(brandId: number, colorId: number): void {
-    this.carService
-      .getAllByDetailsByBrandIdAndColorId(brandId, colorId)
-      .subscribe({
-        next: (response) => {
-          this.carsByDetails = response.data;
-        },
-        error: (err) => console.error(err),
-      });
-  }
-
-  getCarImages() {
-    this.carImageService.getAll().subscribe({
-      next: (response) => (this.carImages = response.data),
-
-      error: (err) => console.error(err),
-    });
+    return filteredCars;
   }
 }
