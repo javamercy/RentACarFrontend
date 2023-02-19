@@ -36,7 +36,12 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         this.AddUserToLocalStorage(userToLogin.email);
         this.addTokenToLocalStorage(response.data);
-        this.router.navigate(["/home"]);
+
+        this.router.navigate(["/home"]).then((bool) => {
+          if (bool) {
+            location.reload();
+          }
+        });
       },
 
       error: (err) => console.error(err),

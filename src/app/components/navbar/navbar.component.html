@@ -21,21 +21,32 @@
           Home
         </a>
       </div>
-      <div class="navbar-nav justify-self-end">
-        <a
-          role="button"
-          class="nav-item nav-link underlined"
-          routerLink="/login"
-          >Log in</a
-        >
-        <a
-          role="button"
-          class="nav-item nav-link rounded text-bg-success signup"
-          routerLink="/signup"
-        >
-          Sign up
-        </a>
-      </div>
+      <ng-template [ngTemplateOutlet]="navbarRight"></ng-template>
     </div>
   </div>
 </nav>
+
+<ng-template #navbarRight>
+  <ng-container *ngIf="!user">
+    <div class="navbar-nav justify-self-end">
+      <a role="button" class="nav-item nav-link underlined" routerLink="/login">
+        Log in
+      </a>
+      <a
+        role="button"
+        class="nav-item nav-link rounded text-bg-success signup"
+        routerLink="/signup"
+      >
+        Sign up
+      </a>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="user">
+    <div class="navbar-nav justify-self-end">
+      <a role="button" class="nav-item nav-link text-light">
+        {{ user.firstName }} {{ user.lastName }}
+        <fa-icon [icon]="profileIcon" class="ms-1"></fa-icon>
+      </a>
+    </div>
+  </ng-container>
+</ng-template>
