@@ -41,7 +41,6 @@ export class CarComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       let colorId: number = params["colorId"];
       let brandId: number = params["brandId"];
-      console.log(params);
 
       if (colorId && brandId) {
         filteredCars = cars.filter(

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { LocalStorageUserModel } from "src/app/models/localStorageUserModel";
 import { LoginModel } from "src/app/models/loginModel";
 import { TokenModel } from "src/app/models/tokenModel";
 import { User } from "src/app/models/user";
@@ -51,7 +52,14 @@ export class LoginComponent implements OnInit {
   AddUserToLocalStorage(email: string) {
     this.userService.getByEmail(email).subscribe({
       next: (response) => {
-        this.localStorageService.add("user", response.data);
+        let user: LocalStorageUserModel = {
+          id: response.data.id,
+          email: response.data.email,
+          firstName: response.data.firstName,
+          lastName: response.data.lastName,
+        };
+
+        this.localStorageService.add("user", user);
       },
 
       error: (err) => console.error(err),
@@ -59,10 +67,6 @@ export class LoginComponent implements OnInit {
   }
 
   addTokenToLocalStorage(tokenModel: TokenModel) {
-    this.localStorageService.add("token", tokenModel.token);
-    this.localStorageService.removeAtSpesificTime(
-      "token",
-      tokenModel.expiration
-    );
+    this.localStorageService.add("token", tokenModel);
   }
 }

@@ -43,10 +43,32 @@
   </ng-container>
   <ng-container *ngIf="user">
     <div class="navbar-nav justify-self-end">
-      <a role="button" class="nav-item nav-link text-light">
-        {{ user.firstName }} {{ user.lastName }}
-        <fa-icon [icon]="profileIcon" class="ms-1"></fa-icon>
-      </a>
+      <div
+        class="nav-item text-light dropdown underlined"
+        (click)="changeChevron()"
+      >
+        <fa-icon [icon]="profileIcon" class="me-1"></fa-icon>
+
+        <a
+          role="button"
+          class="text-light"
+          data-bs-toggle="dropdown"
+          data-bs-auto-close="inside"
+        >
+          {{ user.firstName }} {{ user.lastName }}
+          <fa-icon [icon]="chevronIcon" class="ms-1"></fa-icon>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-profile">
+          <li class="dropdown-item" role="button" routerLink="/profile">
+            Go profile
+          </li>
+          <div class="dropdown-divider"></div>
+          <li class="dropdown-item" role="button" (click)="signout()">
+            Sign out
+          </li>
+        </ul>
+      </div>
     </div>
   </ng-container>
 </ng-template>

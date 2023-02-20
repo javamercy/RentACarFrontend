@@ -18,15 +18,6 @@ export class LocalStorageService {
     localStorage.removeItem(key);
   }
 
-  removeAtSpesificTime(key: string, expiration: string): void {
-    let miliseconds: number =
-      new Date(expiration).getTime() - new Date().getTime();
-
-    setTimeout(() => {
-      localStorage.removeItem(key);
-    }, miliseconds);
-  }
-
   update(key: string, value: any): void {
     localStorage.removeItem(key);
     localStorage.setItem(key, JSON.stringify(value));

@@ -1,0 +1,297 @@
+<ng-container *ngIf="user">
+  <h3 class="lead text-light text-center my-5 fw-bolder fs-3">Your Profile</h3>
+  <div class="w-50 mx-auto my-5">
+    <div class="card text-light bg-dark mb-5">
+      <div class="card-header">
+        <h5 class="card-title m-0 my-3 text-center">Full Name</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group text-center">
+              <label for="firstNameDisplayed" class="my-2">First Name</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstNameDisplayed"
+                  disabled
+                  [value]="user.firstName"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary rounded-end"
+                  data-bs-toggle="modal"
+                  data-bs-target="#changeFirstNameModal"
+                >
+                  Edit
+                </button>
+                <ng-template
+                  [ngTemplateOutlet]="changeFirstNameTemplate"
+                ></ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group text-center">
+              <label for="lastNameDisplayed" class="my-2">Last Name</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastNameDisplayed"
+                  [value]="user.lastName"
+                  disabled
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary rounded-end"
+                  data-bs-toggle="modal"
+                  data-bs-target="#changeLastNameModal"
+                >
+                  Edit
+                </button>
+                <ng-template
+                  [ngTemplateOutlet]="changeLastNameTemplate"
+                ></ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card text-light bg-dark mb-5">
+      <div class="card-header">
+        <h5 class="title text-center m-0 my-3">Email</h5>
+      </div>
+      <div class="card-body">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            [value]="user.email"
+            disabled
+          />
+          <button
+            type="button"
+            class="btn btn-primary rounded-end"
+            data-bs-toggle="modal"
+            data-bs-target="#changeEmailModal"
+          >
+            Edit
+          </button>
+          <ng-template [ngTemplateOutlet]="changeEmailTemplate"></ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="card text-light bg-dark mb-5">
+      <div class="card-header">
+        <h5 class="title m-0 my-3 text-center">Password</h5>
+      </div>
+      <div class="card-body">
+        <div class="input-group">
+          <input
+            type="password"
+            class="form-control"
+            id="oldPasswordDisplayed"
+            disabled
+            placeholder="**********"
+          />
+          <button
+            type="button"
+            class="btn btn-primary rounded-end"
+            data-bs-toggle="modal"
+            data-bs-target="#changePasswordModal"
+          >
+            Edit
+          </button>
+          <ng-template
+            [ngTemplateOutlet]="changePasswordTemplate"
+          ></ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #changeFirstNameTemplate>
+  <div
+    class="modal fade"
+    tabindex="-1"
+    id="changeFirstNameModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title">Change First Name</h5>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="changeFirstNameForm">
+            <div class="from-group text-center">
+              <label for="firstName" class="my-2">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="firstName"
+                id="firstName"
+                #firstName
+              />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-outline-success">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #changeLastNameTemplate>
+  <div
+    class="modal fade"
+    tabindex="-1"
+    id="changeLastNameModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title">Change Last Name</h5>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="changeLastNameForm">
+            <div class="from-group text-center">
+              <label for="lastName" class="my-2">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="lastName"
+                id="lastName"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-outline-success">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #changeEmailTemplate>
+  <div
+    class="modal fade"
+    tabindex="-1"
+    id="changeEmailModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title">Change Email</h5>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="changeEmailForm">
+            <div class="from-group text-center">
+              <label for="lastName" class="my-2">Email</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="email"
+                id="email"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-outline-success">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #changePasswordTemplate>
+  <div
+    class="modal fade"
+    tabindex="-1"
+    id="changePasswordModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title">Change Password</h5>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="changePasswordForm">
+            <div class="from-group text-center">
+              <label for="oldPassword" class="my-2">Old Password</label>
+              <input
+                type="password"
+                class="form-control"
+                formControlName="oldPassword"
+                id="oldPassword"
+              />
+            </div>
+            <div class="from-group my-3 text-center">
+              <label for="newPassword" class="my-2">New Password</label>
+              <input
+                type="password"
+                class="form-control"
+                formControlName="newPassword"
+                id="newPassword"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-outline-success">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

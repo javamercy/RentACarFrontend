@@ -1,6 +1,13 @@
 <app-filter #filterComponent></app-filter>
 <div class="row justify-content-evenly">
-  <ng-container *ngFor="let car of cars | filter : filterComponent.filterText">
+  <ng-container
+    *ngFor="
+      let car of cars
+        | filter : filterComponent.filterText
+        | filterBrand : filterComponent.selectedBrandName
+        | filterColor : filterComponent.selectedColorName
+    "
+  >
     <div class="col-md-3">
       <div class="card mb-3">
         <div class="card-img-top">

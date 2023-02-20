@@ -25,6 +25,7 @@ import { HomeComponent } from "./components/home/home.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     FooterComponent,
     FilterComponent,
     FilterPipe,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

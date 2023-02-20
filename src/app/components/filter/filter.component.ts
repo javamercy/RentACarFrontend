@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 import { Brand } from "src/app/models/brand";
 import { Color } from "src/app/models/color";
 import { BrandService } from "src/app/services/brand.service";
@@ -15,8 +17,8 @@ export class FilterComponent implements OnInit {
   colors: Color[];
   filterForm: FormGroup;
   filterText: string;
-  selectedBrand: Brand;
-  selectedColor: Color;
+  selectedBrandName: string = "";
+  selectedColorName: string = "";
 
   constructor(
     private brandService: BrandService,
@@ -28,8 +30,8 @@ export class FilterComponent implements OnInit {
     this.getColors();
 
     this.filterForm = new FormGroup({
-      color: new FormControl(this.selectedColor),
-      brand: new FormControl(this.selectedBrand),
+      color: new FormControl(),
+      brand: new FormControl(),
     });
   }
 
@@ -49,21 +51,14 @@ export class FilterComponent implements OnInit {
     });
   }
 
-  getRouterLink(): string {
-    if (this.filterForm.invalid) return "";
-
-    let brandRouterText: string = this.filterForm.value.brand
-      ? "/brand/" + this.filterForm.value.brand.id
-      : "";
-
-    let colorRouterText: string = this.filterForm.value.color
-      ? "/color/" + this.filterForm.value.color.id
-      : "";
-
-    return `/cars${brandRouterText}${colorRouterText}`;
+  setSelected() {
+    this.selectedBrandName = this.filterForm.value.brand?.name;
+    this.selectedColorName = this.filterForm.value.color?.name;
   }
 
   resetForm() {
     this.filterForm.reset();
+    this.selectedBrandName = "";
+    this.selectedColorName = "";
   }
 }
