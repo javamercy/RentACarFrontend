@@ -14,8 +14,10 @@ export class LocalStorageService {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  remove(key: string): void {
-    localStorage.removeItem(key);
+  remove(...keys: string[]): void {
+    for (let key of keys) {
+      localStorage.removeItem(key);
+    }
   }
 
   update(key: string, value: any): void {

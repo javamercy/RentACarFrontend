@@ -9,7 +9,7 @@ import { CarComponent } from "./components/car/car.component";
 import { ColorComponent } from "./components/color/color.component";
 import { BrandComponent } from "./components/brand/brand.component";
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { CustomerComponent } from "./components/customer/customer.component";
 import { CarDetailComponent } from "./components/car-detail/car-detail.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -23,9 +23,10 @@ import { LoginComponent } from "./components/auth/login/login.component";
 import { SingupComponent } from "./components/auth/singup/singup.component";
 import { HomeComponent } from "./components/home/home.component";
 import { FooterComponent } from "./components/footer/footer.component";
-import { FilterComponent } from './components/filter/filter.component';
-import { FilterPipe } from './pipes/filter.pipe';
-import { ProfileComponent } from './components/profile/profile.component';
+import { FilterComponent } from "./components/filter/filter.component";
+import { FilterPipe } from "./pipes/filter.pipe";
+import { ProfileComponent } from "./components/profile/profile.component";
+import { AuthInterceptor } from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,13 @@ import { ProfileComponent } from './components/profile/profile.component';
     BrowserAnimationsModule,
     FontAwesomeModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

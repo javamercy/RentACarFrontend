@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { ChangePasswordModel } from "../models/changePasswordModel";
 import { LoginModel } from "../models/loginModel";
 import { ResponseModel } from "../models/responseModel";
 import { SignupModel } from "../models/signupModel";
@@ -33,5 +34,13 @@ export class AuthService {
       newUrl,
       signupModel
     );
+  }
+
+  changePassword(
+    changePasswordModel: ChangePasswordModel
+  ): Observable<ResponseModel> {
+    let newUrl: string = this.apiUrl + "/auth/changepassword";
+
+    return this.httpClient.post<ResponseModel>(newUrl, changePasswordModel);
   }
 }
