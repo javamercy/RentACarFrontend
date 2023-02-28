@@ -3,6 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { AppRoutingModule } from "./app-routing.module";
+
 import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { CarComponent } from "./components/car/car.component";
@@ -57,6 +58,7 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
+
   ],
   providers: [
     {

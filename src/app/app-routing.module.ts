@@ -21,6 +21,7 @@ const routes: Routes = [
     ],
   },
   { path: "cars", component: CarComponent },
+  { path: "cars/car-detail/:carId", component: CarDetailComponent },
   { path: "cars/add", component: CarAddComponent },
   { path: "profile", component: ProfileComponent },
 ];

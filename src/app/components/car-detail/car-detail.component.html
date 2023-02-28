@@ -1,83 +1,121 @@
-<div *ngIf="carByDetails" class="row p-3">
-  <div
-    id="carouselInterval"
-    class="carousel slide col-md-8"
-    data-bs-ride="carousel"
-  >
-    <div class="carousel-inner">
-      <div
-        class="carousel-item border rounded p-2"
-        list-group-item-success
-        [class.active]="isActiveImage(imagePath)"
-        data-bs-interval="5000"
-        *ngFor="let imagePath of carByDetails['imagePaths']"
-      >
-        <img
-          src="{{ API_URL + imagePath }}"
-          class="d-block w-100 rounded"
-          alt="carByDetails.carDescription"
-        />
+<ng-container *ngIf="carByDetails">
+  <div class="container">
+    <div class="my-5">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-md-6">
+          <div
+            id="carCarousel"
+            class="carousel slide carousel-fade"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-inner rounded">
+              <ng-container
+                *ngFor="let carImagePath of carByDetails.imagePaths"
+              >
+                <div class="carousel-item active">
+                  <img
+                    [src]="apiCarImagesUrl + carImagePath"
+                    class="d-block w-100"
+                    [alt]="carByDetails.carDescription"
+                  />
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <table class="table table-black table-striped table-hover mb-5">
+            <tbody class="text-center">
+              <tr>
+                <td class="text-danger fw-bolder border-end">BRAND</td>
+                <td class="text-primary">
+                  {{ carByDetails.brandName | uppercase }}
+                </td>
+              </tr>
+              <tr>
+                <td class="text-danger fw-bolder border-end">MODEL</td>
+                <td class="text-primary">
+                  {{ carByDetails.brandName | uppercase }}
+                </td>
+              </tr>
+              <tr>
+                <td class="text-danger fw-bolder border-end">MODEL YEAR</td>
+                <td class="text-primary">{{ carByDetails.modelYear }}</td>
+              </tr>
+              <tr>
+                <td class="text-danger fw-bolder border-end">DAILY PRICE</td>
+                <td class="text-primary">
+                  {{ carByDetails.dailyPrice | currency }}
+                </td>
+              </tr>
+              <tr>
+                <td class="text-danger fw-bolder border-end">DESCRIPTION</td>
+                <td class="text-primary">
+                  {{ carByDetails.carDescription | uppercase }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-container>
+            <div class="card">
+              <div class="card-header">
+                <h5 class="text-center card-title mb-0">Rental Details</h5>
+              </div>
+              <div class="card-body">
+                <form [formGroup]="rentForm">
+                  <div class="row">
+                    <div class="form-group text-center col-md-6">
+                      <label class="my-2">Rent Date</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [value]="dateNow | date : 'MM.dd.yyyy'"
+                        disabled
+                      />
+                    </div>
+                    <div class="form-group text-center col-md-6">
+                      <label class="my-2">Return Date</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="datePicker"
+                        formControlName="returnDate"
+                        (change)="getTotalDays()"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex align-items-center py-2">
+                  <div>
+                    <div>
+                      Rent Date:
+                      <span class="text-success">
+                        {{ dateNow | date : "MM.dd.yyyy" }}
+                      </span>
+                    </div>
+                    <div>
+                      Return Date:
+                      <span class="text-success">
+                        {{ rentForm.value.returnDate | date : "MM.dd.yyyy" }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="ms-auto">
+                    <button class="btn btn-dark" [class.disabled]="!totalDays">
+                      Rent
+                      <span *ngIf="totalDays">
+                        ({{ carByDetails.dailyPrice * totalDays | currency }})
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
-    <button
-      class="carousel-control-prev"
-      type="button"
-      data-bs-target="#carouselInterval"
-      data-bs-slide="prev"
-    >
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-      class="carousel-control-next"
-      type="button"
-      data-bs-target="#carouselInterval"
-      data-bs-slide="next"
-    >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
   </div>
-  <div class="col-md-4 align-self-center">
-    <div class="list-group pe-0 text-center">
-      <div class="list-group-item list-group-item-success">
-        <div class="row">
-          <span class="fw-bolder text-start col">Brand</span>
-          <span class="text-end col">{{ carByDetails.brandName }}</span>
-        </div>
-      </div>
-      <div class="list-group-item list-group-item-success">
-        <div class="row">
-          <span class="fw-bolder text-start col">Car</span>
-          <span class="text-end col">{{ carByDetails.carDescription }}</span>
-        </div>
-      </div>
-      <div class="list-group-item list-group-item-success">
-        <div class="row">
-          <span class="fw-bolder text-start col">Model Year</span>
-          <span class="text-end col">{{ carByDetails.modelYear }}</span>
-        </div>
-      </div>
-      <div class="list-group-item list-group-item-success">
-        <div class="row">
-          <span class="fw-bolder text-start col">Daily Price</span>
-          <span class="text-end col">
-            {{ carByDetails.dailyPrice | currency }}
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="text-center my-4">
-      <button
-        class="btn btn-primary"
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#datePickerModal"
-        [disabled]="isAlreadyRented(carByDetails.carId)"
-        *ngIf="rentals"
-      >
-        Rent This Car
-      </button>
-    </div>
-  </div>
-</div>
+</ng-container>

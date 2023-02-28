@@ -1,10 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+
 import { ActivatedRoute } from "@angular/router";
 import { Car } from "src/app/models/car";
 import { CarDetailDto } from "src/app/models/carDetailDto";
 import { Rental } from "src/app/models/rental";
 import { CarService } from "src/app/services/car.service";
 import { RentalService } from "src/app/services/rental.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-car-detail",
@@ -12,9 +15,13 @@ import { RentalService } from "src/app/services/rental.service";
   styleUrls: ["./car-detail.component.css"],
 })
 export class CarDetailComponent implements OnInit {
-  public API_URL: string = "http://localhost:5304/";
-  public carByDetails: CarDetailDto;
+  apiUrl: string = environment.apiUrl;
+  apiCarImagesUrl: string = environment.apiCarImagesUrl;
+  carByDetails: CarDetailDto;
   rentals: Rental[];
+  rentForm: FormGroup;
+  dateNow: Date;
+  totalDays: number;
 
   constructor(
     private carService: CarService,
@@ -23,8 +30,9 @@ export class CarDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dateNow = new Date();
     this.getRentals();
-
+    this.createRentForm();
     this.activatedRoute.params.subscribe((params) => {
       let carId: number = params["carId"];
       if (carId) {
@@ -64,5 +72,21 @@ export class CarDetailComponent implements OnInit {
       });
 
     return result;
+  }
+
+  createRentForm() {
+    this.rentForm = new FormGroup({
+      returnDate: new FormControl("", Validators.required),
+    });
+  }
+
+  getTotalDays() {
+    let timeStart = this.dateNow.getTime();
+    let timeEnd = new Date(this.rentForm.value.returnDate).getTime();
+
+    let miliseconds = timeEnd - timeStart;
+    let days = miliseconds / 1000.0 / 60 / 60 / 24;
+
+    this.totalDays = days;
   }
 }
