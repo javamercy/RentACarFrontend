@@ -103,7 +103,12 @@
                     </div>
                   </div>
                   <div class="ms-auto">
-                    <button class="btn btn-dark" [class.disabled]="!totalDays">
+                    <button
+                      class="btn btn-dark"
+                      [class.disabled]="!totalDays"
+                      routerLink="/payment"
+                      (click)="addRentalDetailsToSessionStorage()"
+                    >
                       Rent
                       <span *ngIf="totalDays">
                         ({{ carByDetails.dailyPrice * totalDays | currency }})

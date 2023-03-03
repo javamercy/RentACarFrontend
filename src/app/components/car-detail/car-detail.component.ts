@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { ActivatedRoute } from "@angular/router";
-import { Car } from "src/app/models/car";
 import { CarDetailDto } from "src/app/models/carDetailDto";
 import { Rental } from "src/app/models/rental";
+import { SessionStorageRentalModel } from "src/app/models/sessionStorageRentalModel";
 import { CarService } from "src/app/services/car.service";
 import { RentalService } from "src/app/services/rental.service";
+import { SessionStorageService } from "src/app/services/sessionStorage.service";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -26,7 +27,8 @@ export class CarDetailComponent implements OnInit {
   constructor(
     private carService: CarService,
     private rentalService: RentalService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private sessionStorageService: SessionStorageService
   ) {}
 
   ngOnInit(): void {
@@ -87,6 +89,16 @@ export class CarDetailComponent implements OnInit {
     let miliseconds = timeEnd - timeStart;
     let days = miliseconds / 1000.0 / 60 / 60 / 24;
 
-    this.totalDays = days;
+    this.totalDays = Math.ceil(days);
+  }
+
+  addRentalDetailsToSessionStorage() {
+    let rental: SessionStorageRentalModel = {
+      carId: this.carByDetails.carId,
+      rentDate: null,
+      returnDate: this.rentForm.value.returnDate,
+      totalDays: this.totalDays,
+    };
+    this.sessionStorageService.add("rental", rental);
   }
 }

@@ -28,6 +28,7 @@ import { FilterComponent } from "./components/filter/filter.component";
 import { FilterPipe } from "./pipes/filter.pipe";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
     FilterComponent,
     FilterPipe,
     ProfileComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

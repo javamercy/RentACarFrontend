@@ -7,7 +7,9 @@ import { CarAddComponent } from "./components/car-add/car-add.component";
 import { CarDetailComponent } from "./components/car-detail/car-detail.component";
 import { CarComponent } from "./components/car/car.component";
 import { HomeComponent } from "./components/home/home.component";
+import { PaymentComponent } from "./components/payment/payment.component";
 import { ProfileComponent } from "./components/profile/profile.component";
+import { PaymentGuard } from "./guards/payment.guard";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
@@ -24,6 +26,11 @@ const routes: Routes = [
   { path: "cars/car-detail/:carId", component: CarDetailComponent },
   { path: "cars/add", component: CarAddComponent },
   { path: "profile", component: ProfileComponent },
+  {
+    path: "payment",
+    component: PaymentComponent,
+    canActivate: [PaymentGuard],
+  },
 ];
 
 @NgModule({
