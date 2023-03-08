@@ -102,23 +102,13 @@ export class PaymentComponent implements OnInit {
 
     this.paymentService.pay(creditCard, amount).subscribe({
       next: (response) => {
-        let payment: Payment = {
-          amount: amount,
-          customerId: 1,
-          date: new Date(),
-          id: 0,
-        };
-
         this.createCustomer()
           .then((response) => {
-            if (response.success) {
-              this.createRental();
-              this.addPayment(payment);
-            }
+            this.createRental();
+            this.addPayment();
           })
           .catch((err) => console.log(err));
       },
-
       error: (err) => console.error(err),
     });
   }
@@ -127,51 +117,56 @@ export class PaymentComponent implements OnInit {
     console.log(any);
   }
 
-  addPayment(payment: Payment) {
-    this.paymentService.add(payment).subscribe({
-      next: (response) => response,
+  addPayment() {
+    let amount: number = this.rentalDetails.totalDays * this.car.dailyPrice;
+    this.getByUserId(this.currentUser.id).then((customer) => {
+      let payment: Payment = {
+        amount: amount,
+        customerId: customer.id,
+        date: new Date(),
+        id: 0,
+      };
+      this.paymentService.add(payment).subscribe({
+        next: (response) => response,
 
-      error: (err) => console.log(err),
+        error: (err) => console.log(err),
+      });
     });
   }
 
   createCustomer(): Promise<ResponseModel> {
-    return new Promise((resolve, reject) => {
-      let customer: Customer = {
-        id: 0,
-        companyName: "",
-        userId: this.currentUser.id,
-      };
+    let customer: Customer = {
+      id: 0,
+      companyName: "Kursun Holding A.Ş",
+      userId: this.currentUser.id,
+    };
 
+    return new Promise((resolve, reject) => {
       this.customerService.add(customer).subscribe({
-        next: (response) => resolve(response),
+        next: (response) => {
+          resolve(response);
+        },
         error: (err) => reject(err),
       });
     });
   }
   createRental() {
-    let userId: number = this.currentUser.id;
-    let customerId: number;
-
-    this.customerService.getByUserId(userId).subscribe({
-      next: (response) => {
-        customerId = response.data.id;
+    this.getByUserId(this.currentUser.id)
+      .then((customer) => {
+        this.log(customer);
         let rental: Rental = {
           carId: this.car.carId,
-          customerId: customerId,
+          customerId: customer.id,
           id: 0,
           rentDate: new Date(),
           returnDate: this.rentalDetails.returnDate,
         };
-
         this.rentalService.add(rental).subscribe({
           next: (response) => console.log(response),
           error: (err) => console.error(err),
         });
-      },
-
-      error: (err) => console.error(err),
-    });
+      })
+      .catch((err) => console.error(err));
   }
 
   getCurrentUser(): Promise<SingleResponseModel<User>> {
@@ -190,5 +185,15 @@ export class PaymentComponent implements OnInit {
 
   getRentalDetailsFromSessionStorage() {
     this.rentalDetails = this.sessionStorageService.get("rental");
+  }
+
+  getByUserId(userId: number): Promise<Customer> {
+    return new Promise((resolve, reject) => {
+      this.customerService.getByUserId(userId).subscribe({
+        next: (response) => resolve(response.data),
+
+        error: (err) => reject(err),
+      });
+    });
   }
 }

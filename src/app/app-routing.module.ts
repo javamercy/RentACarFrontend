@@ -9,6 +9,7 @@ import { CarComponent } from "./components/car/car.component";
 import { HomeComponent } from "./components/home/home.component";
 import { PaymentComponent } from "./components/payment/payment.component";
 import { ProfileComponent } from "./components/profile/profile.component";
+import { LoginGuard } from "./guards/login.guard";
 import { PaymentGuard } from "./guards/payment.guard";
 
 const routes: Routes = [
@@ -23,13 +24,17 @@ const routes: Routes = [
     ],
   },
   { path: "cars", component: CarComponent },
-  { path: "cars/car-detail/:carId", component: CarDetailComponent },
-  { path: "cars/add", component: CarAddComponent },
-  { path: "profile", component: ProfileComponent },
+  {
+    path: "cars/car-detail/:carId",
+    component: CarDetailComponent,
+    canActivate: [LoginGuard],
+  },
+  { path: "cars/add", component: CarAddComponent, canActivate: [LoginGuard] },
+  { path: "profile", component: ProfileComponent, canActivate: [LoginGuard] },
   {
     path: "payment",
     component: PaymentComponent,
-    canActivate: [PaymentGuard],
+    canActivate: [PaymentGuard, LoginGuard],
   },
 ];
 

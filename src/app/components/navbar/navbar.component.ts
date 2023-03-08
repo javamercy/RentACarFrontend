@@ -7,6 +7,7 @@ import {
   IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import { User } from "src/app/models/user";
+import { AuthService } from "src/app/services/auth.service";
 import { LocalStorageService } from "src/app/services/localStorage.service";
 
 @Component({
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private localStorageService: LocalStorageService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -42,12 +44,7 @@ export class NavbarComponent implements OnInit {
   }
 
   signout() {
-    this.localStorageService.remove("token");
-    this.localStorageService.remove("user");
-    this.router.navigate(["/login"]).then((bool) => {
-      if (bool) {
-        location.reload();
-      }
-    });
+    this.authService.signout();
+    this.router.navigate(["/login"]).then((bool) => bool && location.reload());
   }
 }
