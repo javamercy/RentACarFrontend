@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { ChangePasswordModel } from "src/app/models/changePasswordModel";
 import { User } from "src/app/models/user";
 import { AuthService } from "src/app/services/auth.service";
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private localStorageService: LocalStorageService,
     private authService: AuthService,
+    private toastrService: ToastrService,
     private router: Router
   ) {}
 
@@ -79,7 +81,9 @@ export class ProfileComponent implements OnInit {
 
     this.userService.update(updatedUser).subscribe({
       next: (response) => {
-        console.log(response);
+        this.getUser();
+        this.localStorageService.update("user", updatedUser);
+        this.toastrService.success(response.message);
       },
       error: (err) => console.error(err),
     });
@@ -91,7 +95,9 @@ export class ProfileComponent implements OnInit {
 
     this.userService.update(updatedUser).subscribe({
       next: (response) => {
-        console.log(response);
+        this.getUser();
+        this.localStorageService.update("user", updatedUser);
+        this.toastrService.success(response.message);
       },
       error: (err) => console.error(err),
     });
@@ -103,7 +109,9 @@ export class ProfileComponent implements OnInit {
 
     this.userService.update(updatedUser).subscribe({
       next: (response) => {
+        this.getUser();
         this.localStorageService.update("user", updatedUser);
+        this.toastrService.success(response.message);
       },
       error: (err) => console.error(err),
     });
@@ -114,14 +122,23 @@ export class ProfileComponent implements OnInit {
       .value as ChangePasswordModel;
     changePasswordModel.email = this.user.email;
 
-    console.log(changePasswordModel);
-
     this.authService.changePassword(changePasswordModel).subscribe({
       next: (response) => {
+        this.toastrService.success(response.message + " Please login.");
         this.localStorageService.remove("user", "token");
-        this.router.navigate(["/login"]);
+
+        setTimeout(() => {
+          this.router.navigate(["/login"]).then(() => location.reload());
+        }, 1500);
       },
-      error: (err) => console.error(err),
+      error: (error) => {
+        this.toastrService.error(error.error.message);
+        this.changePasswordForm.reset();
+      },
     });
+  }
+
+  isSaveButtonDisabled(formGroup: FormGroup) {
+    return formGroup.invalid || formGroup.pristine;
   }
 }

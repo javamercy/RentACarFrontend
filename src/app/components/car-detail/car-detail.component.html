@@ -1,7 +1,14 @@
 <ng-container *ngIf="carByDetails">
   <div class="container">
     <div class="my-5">
-      <div class="row justify-content-between align-items-center">
+      <hr class="hr text-light" />
+      <ng-container *ngIf="isAlreadyRented(carByDetails.carId)">
+        <div class="alert alert-danger text-center">
+          This car has not been delivered yet!
+        </div>
+        <hr class="hr text-light" />
+      </ng-container>
+      <div class="row justify-content-between align-items-center gap-3">
         <div class="col-md-6">
           <div
             id="carCarousel"
@@ -23,8 +30,9 @@
             </div>
           </div>
         </div>
-        <div class="col-md-5">
-          <table class="table table-black table-striped table-hover mb-5">
+        <div class="col-md-5 gap-5">
+          <hr class="hr text-light my-3" />
+          <table class="table table-black table-striped table-hover">
             <tbody class="text-center">
               <tr>
                 <td class="text-danger fw-bolder border-end">BRAND</td>
@@ -56,7 +64,8 @@
               </tr>
             </tbody>
           </table>
-          <ng-container>
+          <ng-container *ngIf="!isAlreadyRented(carByDetails.carId)">
+            <hr class="hr text-light my-3" />
             <div class="card">
               <div class="card-header">
                 <h5 class="text-center card-title mb-0">Rental Details</h5>
@@ -69,7 +78,7 @@
                       <input
                         type="text"
                         class="form-control"
-                        [value]="dateNow | date : 'MM.dd.yyyy'"
+                        [value]="dateNow | date : 'dd.MM.yyyy'"
                         disabled
                       />
                     </div>
@@ -92,13 +101,13 @@
                     <div>
                       Rent Date:
                       <span class="text-success">
-                        {{ dateNow | date : "MM.dd.yyyy" }}
+                        {{ dateNow | date : "dd.MM.yyyy" }}
                       </span>
                     </div>
                     <div>
                       Return Date:
                       <span class="text-success">
-                        {{ rentForm.value.returnDate | date : "MM.dd.yyyy" }}
+                        {{ rentForm.value.returnDate | date : "dd.MM.yyyy" }}
                       </span>
                     </div>
                   </div>
@@ -118,6 +127,7 @@
                 </div>
               </div>
             </div>
+            <hr class="hr text-light" />
           </ng-container>
         </div>
       </div>

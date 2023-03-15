@@ -28,6 +28,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
+    this.collapseNavbar();
   }
 
   getUser() {
@@ -35,16 +36,28 @@ export class NavbarComponent implements OnInit {
   }
 
   changeChevron() {
-    const dropdownMenu = document.querySelector(".dropdown-menu-profile");
-    if (dropdownMenu.classList.contains("show")) {
-      this.chevronIcon = faChevronUp;
-    } else {
-      this.chevronIcon = faChevronDown;
-    }
+    this.chevronIcon =
+      this.chevronIcon.icon == faChevronDown.icon ? faChevronUp : faChevronDown;
   }
 
   signout() {
     this.authService.signout();
     this.router.navigate(["/login"]).then((bool) => bool && location.reload());
+  }
+
+  collapseNavbar() {
+    const navbar = document.querySelector("nav.navbar");
+
+    navbar.addEventListener("click", (e) => {
+      const navbarCollapse = document.querySelector(".navbar-collapse");
+      const element = e.target as Element;
+
+      if (
+        element.classList.contains("nav-link") ||
+        element.classList.contains("dropdown-item")
+      ) {
+        navbarCollapse.classList.toggle("show");
+      }
+    });
   }
 }

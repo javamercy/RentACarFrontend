@@ -1,9 +1,10 @@
-<div class="w-75 my-5 mx-auto bg-dark p-3 rounded">
-  <h5 class="text-center text-light my-4 fs-3">Filter</h5>
+<div class="my-5 mx-auto bg-dark p-3 rounded">
+  <h5 class="text-center text-light mt-4 fs-3">Filter</h5>
+  <div class="border-bottom w-50 mx-auto my-2"></div>
   <form [formGroup]="filterForm">
     <div class="row justify-content-center">
       <div class="col-md-4">
-        <h6 class="text-muted fw-bolder text-center">select brand</h6>
+        <h6 class="text-muted fw-bolder text-center my-3">select brand</h6>
         <select class="form-select mt-2" formControlName="brand">
           <ng-container *ngFor="let brand of brands">
             <option [ngValue]="brand">
@@ -13,7 +14,7 @@
         </select>
       </div>
       <div class="col-md-4">
-        <h6 class="text-muted fw-bolder text-center">select color</h6>
+        <h6 class="text-muted fw-bolder text-center my-3">select color</h6>
         <select class="form-select mt-2" formControlName="color">
           <ng-container *ngFor="let color of colors">
             <option [ngValue]="color">
@@ -23,7 +24,7 @@
         </select>
       </div>
 
-      <div class="col-md-1 align-self-end">
+      <div class="col-md-1 align-self-end mt-3 text-center">
         <div class="btn-group">
           <button
             type="button"

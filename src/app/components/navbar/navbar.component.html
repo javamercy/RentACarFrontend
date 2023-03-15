@@ -47,14 +47,13 @@
         class="nav-item text-light dropdown underlined"
         (click)="changeChevron()"
       >
-        <fa-icon [icon]="profileIcon" class="me-1"></fa-icon>
-
         <a
           role="button"
           class="text-light"
           data-bs-toggle="dropdown"
           data-bs-auto-close="inside"
         >
+          <fa-icon [icon]="profileIcon" class="me-1"></fa-icon>
           {{ user.firstName }} {{ user.lastName }}
           <fa-icon [icon]="chevronIcon" class="ms-1"></fa-icon>
         </a>

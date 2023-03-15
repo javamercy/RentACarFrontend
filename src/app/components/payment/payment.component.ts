@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { CarDetailDto } from "src/app/models/carDetailDto";
 import { CreditCard } from "src/app/models/creditCard";
 import { Customer } from "src/app/models/customer";
@@ -41,16 +42,15 @@ export class PaymentComponent implements OnInit {
     private customerService: CustomerService,
     private rentalService: RentalService,
     private localStorageService: LocalStorageService,
-    private sessionStorageService: SessionStorageService
+    private sessionStorageService: SessionStorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getRentalDetailsFromSessionStorage();
-    this.getCurrentUser().then((response) =>
-      this.getCarDetailsByCarId(response.data.id)
-    );
-
     this.createCreditCardForm();
+    this.getRentalDetailsFromSessionStorage();
+    this.getCarDetailsByCarId(this.rentalDetails.carId);
+    this.getCurrentUser();
   }
 
   getCarDetailsByCarId(carId: number) {
@@ -102,12 +102,21 @@ export class PaymentComponent implements OnInit {
 
     this.paymentService.pay(creditCard, amount).subscribe({
       next: (response) => {
-        this.createCustomer()
-          .then((response) => {
+        this.getByUserId(this.currentUser.id).then((customer) => {
+          if (!customer) {
+            this.createCustomer()
+              .then((response) => {
+                this.createRental();
+                this.addPayment();
+              })
+              .catch((err) => console.log(err));
+          } else {
             this.createRental();
             this.addPayment();
-          })
-          .catch((err) => console.log(err));
+          }
+
+          this.router.navigate(["/payment-success"]);
+        });
       },
       error: (err) => console.error(err),
     });
@@ -140,7 +149,6 @@ export class PaymentComponent implements OnInit {
       companyName: "Kursun Holding A.Ş",
       userId: this.currentUser.id,
     };
-
     return new Promise((resolve, reject) => {
       this.customerService.add(customer).subscribe({
         next: (response) => {
@@ -153,7 +161,6 @@ export class PaymentComponent implements OnInit {
   createRental() {
     this.getByUserId(this.currentUser.id)
       .then((customer) => {
-        this.log(customer);
         let rental: Rental = {
           carId: this.car.carId,
           customerId: customer.id,
@@ -162,24 +169,20 @@ export class PaymentComponent implements OnInit {
           returnDate: this.rentalDetails.returnDate,
         };
         this.rentalService.add(rental).subscribe({
-          next: (response) => console.log(response),
+          next: (response) => response,
           error: (err) => console.error(err),
         });
       })
       .catch((err) => console.error(err));
   }
 
-  getCurrentUser(): Promise<SingleResponseModel<User>> {
-    return new Promise((resolve, reject) => {
-      let email: string = this.localStorageService.get("user")["email"];
-      this.userService.getByEmail(email).subscribe({
-        next: (response) => {
-          this.currentUser = response.data;
-          resolve(response);
-        },
-
-        error: (err) => reject(err),
-      });
+  getCurrentUser() {
+    let email: string = this.localStorageService.get("user")["email"];
+    this.userService.getByEmail(email).subscribe({
+      next: (response) => {
+        this.currentUser = response.data;
+      },
+      error: (err) => console.error(err),
     });
   }
 
@@ -190,7 +193,9 @@ export class PaymentComponent implements OnInit {
   getByUserId(userId: number): Promise<Customer> {
     return new Promise((resolve, reject) => {
       this.customerService.getByUserId(userId).subscribe({
-        next: (response) => resolve(response.data),
+        next: (response) => {
+          resolve(response.data);
+        },
 
         error: (err) => reject(err),
       });

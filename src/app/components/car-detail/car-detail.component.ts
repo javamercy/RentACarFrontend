@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { ActivatedRoute } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { CarDetailDto } from "src/app/models/carDetailDto";
 import { Rental } from "src/app/models/rental";
 import { SessionStorageRentalModel } from "src/app/models/sessionStorageRentalModel";
@@ -27,6 +28,7 @@ export class CarDetailComponent implements OnInit {
   constructor(
     private carService: CarService,
     private rentalService: RentalService,
+    private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
     private sessionStorageService: SessionStorageService
   ) {}
@@ -57,23 +59,20 @@ export class CarDetailComponent implements OnInit {
 
   getRentals() {
     this.rentalService.getAll().subscribe({
-      next: (response) => {
-        this.rentals = response.data;
-      },
-
-      error: (err) => console.error(err),
+      next: (response) => (this.rentals = response.data),
+      error: (error) => this.toastrService.error(error, "ERROR"),
     });
   }
 
   isAlreadyRented(carId: number): boolean {
-    var result = this.rentals
-      .filter((r) => r.carId === carId)
-      .some((r) => {
-        let dateToReturn = new Date(r.returnDate);
-        return dateToReturn.getTime() > Date.now();
-      });
-
-    return result;
+    return this.rentals
+      ? this.rentals
+          .filter((rental) => rental.carId === carId)
+          .some((rental) => {
+            let dateToReturn = new Date(rental.returnDate);
+            return dateToReturn.getTime() > Date.now();
+          })
+      : false;
   }
 
   createRentForm() {

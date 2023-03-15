@@ -21,15 +21,16 @@ export class CustomerService {
     return this.httpClient.get<ListResponseModel<Customer>>(newUrl);
   }
 
-  getByUserId(userId:number): Observable<SingleResponseModel<Customer>> {
-    let newUrl: string = this.apiUrl + "/customers/getbyuserid?userid="+userId;
+  getByUserId(userId: number): Observable<SingleResponseModel<Customer>> {
+    let newUrl: string =
+      this.apiUrl + "/customers/getbyuserid?userid=" + userId;
 
     return this.httpClient.get<SingleResponseModel<Customer>>(newUrl);
   }
 
-  add(customer:Customer): Observable<ResponseModel> {
+  add(customer: Customer): Observable<ResponseModel> {
     let newUrl: string = this.apiUrl + "/customers/add";
 
-    return this.httpClient.post<ResponseModel>(newUrl,customer);
+    return this.httpClient.post<ResponseModel>(newUrl, customer);
   }
 }

@@ -7,6 +7,7 @@ import { CarAddComponent } from "./components/car-add/car-add.component";
 import { CarDetailComponent } from "./components/car-detail/car-detail.component";
 import { CarComponent } from "./components/car/car.component";
 import { HomeComponent } from "./components/home/home.component";
+import { PaymentSuccessComponent } from "./components/payment-success/payment-success.component";
 import { PaymentComponent } from "./components/payment/payment.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { LoginGuard } from "./guards/login.guard";
@@ -23,7 +24,7 @@ const routes: Routes = [
       { path: "signup", component: SingupComponent },
     ],
   },
-  { path: "cars", component: CarComponent },
+  { path: "cars", component: HomeComponent },
   {
     path: "cars/car-detail/:carId",
     component: CarDetailComponent,
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: "payment",
     component: PaymentComponent,
+    canActivate: [PaymentGuard, LoginGuard],
+  },
+  {
+    path: "payment-success",
+    component: PaymentSuccessComponent,
     canActivate: [PaymentGuard, LoginGuard],
   },
 ];

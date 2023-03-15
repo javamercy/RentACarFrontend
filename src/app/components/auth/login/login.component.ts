@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { LocalStorageUserModel } from "src/app/models/localStorageUserModel";
 import { LoginModel } from "src/app/models/loginModel";
 import { TokenModel } from "src/app/models/tokenModel";
-import { User } from "src/app/models/user";
 import { AuthService } from "src/app/services/auth.service";
 import { LocalStorageService } from "src/app/services/localStorage.service";
 import { UserService } from "src/app/services/user.service";
@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -31,21 +32,22 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (this.loginForm.invalid) return;
     let userToLogin: LoginModel = this.loginForm.value as LoginModel;
 
     this.authService.login(userToLogin).subscribe({
       next: (response) => {
         this.AddUserToLocalStorage(userToLogin.email);
         this.addTokenToLocalStorage(response.data);
-
-        this.router.navigate(["/home"]).then((bool) => {
-          if (bool) {
-            location.reload();
-          }
-        });
+        this.toastrService.success("Login Success");
+        setTimeout(() => {
+          this.router.navigate(["/home"]).then(() => location.reload());
+        }, 1500);
       },
 
-      error: (err) => console.error(err),
+      error: (error) => {
+        this.toastrService.error(error.error.message);
+      },
     });
   }
 

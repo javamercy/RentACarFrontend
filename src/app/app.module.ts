@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule } from "ngx-toastr";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -28,7 +29,8 @@ import { FilterComponent } from "./components/filter/filter.component";
 import { FilterPipe } from "./pipes/filter.pipe";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
-import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentComponent } from "./components/payment/payment.component";
+import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     FilterPipe,
     ProfileComponent,
     PaymentComponent,
+    PaymentSuccessComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,12 @@ import { PaymentComponent } from './components/payment/payment.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: "toast-bottom-right",
+      preventDuplicates: true,
 
+    }),
   ],
   providers: [
     {

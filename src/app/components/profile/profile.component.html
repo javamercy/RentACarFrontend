@@ -1,113 +1,117 @@
 <ng-container *ngIf="user">
-  <h3 class="lead text-light text-center my-5 fw-bolder fs-3">Your Profile</h3>
-  <div class="w-50 mx-auto my-5">
-    <div class="card text-light bg-dark mb-5">
-      <div class="card-header">
-        <h5 class="card-title m-0 my-3 text-center">Full Name</h5>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group text-center">
-              <label for="firstNameDisplayed" class="my-2">First Name</label>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="firstNameDisplayed"
-                  disabled
-                  [value]="user.firstName"
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary rounded-end"
-                  data-bs-toggle="modal"
-                  data-bs-target="#changeFirstNameModal"
-                >
-                  Edit
-                </button>
-                <ng-template
-                  [ngTemplateOutlet]="changeFirstNameTemplate"
-                ></ng-template>
+  <div class="container">
+    <h3 class="lead text-light text-center my-5 fw-bolder fs-3">
+      Your Profile
+    </h3>
+    <div class="mx-auto my-5 card-container">
+      <div class="card text-light bg-dark mb-5">
+        <div class="card-header">
+          <h5 class="card-title m-0 my-3 text-center">Full Name</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group text-center">
+                <label for="firstNameDisplayed" class="my-2">First Name</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstNameDisplayed"
+                    disabled
+                    [value]="user.firstName"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-primary rounded-end"
+                    data-bs-toggle="modal"
+                    data-bs-target="#changeFirstNameModal"
+                  >
+                    Edit
+                  </button>
+                  <ng-template
+                    [ngTemplateOutlet]="changeFirstNameTemplate"
+                  ></ng-template>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group text-center">
-              <label for="lastNameDisplayed" class="my-2">Last Name</label>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="lastNameDisplayed"
-                  [value]="user.lastName"
-                  disabled
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary rounded-end"
-                  data-bs-toggle="modal"
-                  data-bs-target="#changeLastNameModal"
-                >
-                  Edit
-                </button>
-                <ng-template
-                  [ngTemplateOutlet]="changeLastNameTemplate"
-                ></ng-template>
+            <div class="col-md-6">
+              <div class="form-group text-center">
+                <label for="lastNameDisplayed" class="my-2">Last Name</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastNameDisplayed"
+                    [value]="user.lastName"
+                    disabled
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-primary rounded-end"
+                    data-bs-toggle="modal"
+                    data-bs-target="#changeLastNameModal"
+                  >
+                    Edit
+                  </button>
+                  <ng-template
+                    [ngTemplateOutlet]="changeLastNameTemplate"
+                  ></ng-template>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="card text-light bg-dark mb-5">
-      <div class="card-header">
-        <h5 class="title text-center m-0 my-3">Email</h5>
-      </div>
-      <div class="card-body">
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            [value]="user.email"
-            disabled
-          />
-          <button
-            type="button"
-            class="btn btn-primary rounded-end"
-            data-bs-toggle="modal"
-            data-bs-target="#changeEmailModal"
-          >
-            Edit
-          </button>
-          <ng-template [ngTemplateOutlet]="changeEmailTemplate"></ng-template>
+      <div class="card text-light bg-dark mb-5">
+        <div class="card-header">
+          <h5 class="title text-center m-0 my-3">Email</h5>
+        </div>
+        <div class="card-body">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              [value]="user.email"
+              disabled
+            />
+            <button
+              type="button"
+              class="btn btn-primary rounded-end"
+              data-bs-toggle="modal"
+              data-bs-target="#changeEmailModal"
+            >
+              Edit
+            </button>
+            <ng-template [ngTemplateOutlet]="changeEmailTemplate"></ng-template>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card text-light bg-dark mb-5">
-      <div class="card-header">
-        <h5 class="title m-0 my-3 text-center">Password</h5>
-      </div>
-      <div class="card-body">
-        <div class="input-group">
-          <input
-            type="password"
-            class="form-control"
-            id="oldPasswordDisplayed"
-            disabled
-            placeholder="**********"
-          />
-          <button
-            type="button"
-            class="btn btn-primary rounded-end"
-            data-bs-toggle="modal"
-            data-bs-target="#changePasswordModal"
-          >
-            Edit
-          </button>
-          <ng-template
-            [ngTemplateOutlet]="changePasswordTemplate"
-          ></ng-template>
+      <div class="card text-light bg-dark mb-5">
+        <div class="card-header">
+          <h5 class="title m-0 my-3 text-center">Password</h5>
+        </div>
+        <div class="card-body">
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control"
+              id="oldPasswordDisplayed"
+              disabled
+              placeholder="**********"
+            />
+            <button
+              type="button"
+              class="btn btn-primary rounded-end"
+              data-bs-toggle="modal"
+              data-bs-target="#changePasswordModal"
+            >
+              Edit
+            </button>
+            <ng-template
+              [ngTemplateOutlet]="changePasswordTemplate"
+            ></ng-template>
+          </div>
         </div>
       </div>
     </div>
@@ -155,6 +159,7 @@
               class="btn btn-outline-success"
               data-bs-dismiss="modal"
               (click)="changeFirstName()"
+              [disabled]="isSaveButtonDisabled(changeFirstNameForm)"
             >
               Save
             </button>
@@ -205,6 +210,7 @@
               class="btn btn-outline-success"
               data-bs-dismiss="modal"
               (click)="changeLastName()"
+              [disabled]="isSaveButtonDisabled(changeLastNameForm)"
             >
               Save
             </button>
@@ -255,6 +261,7 @@
               class="btn btn-outline-success"
               data-bs-dismiss="modal"
               (click)="changeEmail()"
+              [disabled]="isSaveButtonDisabled(changeEmailForm)"
             >
               Save
             </button>
@@ -306,6 +313,7 @@
               type="button"
               class="btn btn-outline-danger"
               data-bs-dismiss="modal"
+              (click)="changePasswordForm.reset()"
             >
               Close
             </button>
@@ -314,6 +322,7 @@
               class="btn btn-outline-success"
               data-bs-dismiss="modal"
               (click)="changePassword()"
+              [disabled]="isSaveButtonDisabled(changePasswordForm)"
             >
               Save
             </button>
