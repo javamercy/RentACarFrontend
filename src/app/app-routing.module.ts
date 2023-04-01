@@ -1,5 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AdminComponent } from "./components/admin/admin.component";
+import { BrandAddComponent } from "./components/admin/brand-add/brand-add.component";
+import { BrandManagerComponent } from "./components/admin/brand-manager/brand-manager.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { SingupComponent } from "./components/auth/singup/singup.component";
@@ -41,6 +44,23 @@ const routes: Routes = [
     path: "payment-success",
     component: PaymentSuccessComponent,
     canActivate: [PaymentGuard, LoginGuard],
+  },
+
+  {
+    path: "admin",
+    component: AdminComponent,
+    children: [
+      {
+        path: "brand/manager",
+        component: BrandManagerComponent,
+        data: { role: "admin" },
+      },
+      {
+        path: "brand/add",
+        component: BrandAddComponent,
+        data: { role: "admin" },
+      },
+    ],
   },
 ];
 

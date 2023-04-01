@@ -45,6 +45,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(["/login"]).then((bool) => bool && location.reload());
   }
 
+  isAuthorized() {
+    this.authService.isAuthenticated;
+  }
+
   collapseNavbar() {
     const navbar = document.querySelector("nav.navbar");
 
@@ -59,5 +63,13 @@ export class NavbarComponent implements OnInit {
         navbarCollapse.classList.toggle("show");
       }
     });
+  }
+
+  isAdmin(): boolean {
+    return this.authService.hasRole("admin");
+  }
+
+  log(any: any) {
+    console.log(any);
   }
 }

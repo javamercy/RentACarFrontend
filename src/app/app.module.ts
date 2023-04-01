@@ -30,7 +30,10 @@ import { FilterPipe } from "./pipes/filter.pipe";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
 import { PaymentComponent } from "./components/payment/payment.component";
-import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
+import { PaymentSuccessComponent } from "./components/payment-success/payment-success.component";
+import { AdminComponent } from "./components/admin/admin.component";
+import { JWT_OPTIONS } from "@auth0/angular-jwt";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -54,6 +57,7 @@ import { PaymentSuccessComponent } from './components/payment-success/payment-su
     ProfileComponent,
     PaymentComponent,
     PaymentSuccessComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,6 @@ import { PaymentSuccessComponent } from './components/payment-success/payment-su
       timeOut: 3000,
       positionClass: "toast-bottom-right",
       preventDuplicates: true,
-
     }),
   ],
   providers: [
@@ -76,6 +79,11 @@ import { PaymentSuccessComponent } from './components/payment-success/payment-su
       useClass: AuthInterceptor,
       multi: true,
     },
+    {
+      provide: JWT_OPTIONS,
+      useValue: JWT_OPTIONS,
+    },
+    JwtHelperService,
   ],
   bootstrap: [AppComponent],
 })

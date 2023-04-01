@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ChangePasswordModel } from "../models/changePasswordModel";
@@ -19,7 +20,8 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private localStorageService: LocalStorageService,
-    private sessionStorageService: SessionStorageService
+    private sessionStorageService: SessionStorageService,
+    private jwtHelperService: JwtHelperService
   ) {}
 
   login(loginModel: LoginModel): Observable<SingleResponseModel<TokenModel>> {
@@ -56,9 +58,12 @@ export class AuthService {
     return this.httpClient.post<ResponseModel>(newUrl, changePasswordModel);
   }
 
-  isTokenExpired(): boolean {
-    let token: TokenModel = this.localStorageService.get("token");
+  private getToken() {
+    return this.localStorageService.get("token");
+  }
 
+  isTokenExpired(): boolean {
+    let token = this.getToken();
     if (!token) return true;
 
     let expiringDate: Date = new Date(token.expiration);
@@ -67,5 +72,20 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return this.localStorageService.get("token") ? true : false;
+  }
+
+  hasRole(role: string) {
+    let token: TokenModel = this.getToken();
+
+    if (!token) return false;
+
+    let decodedToken = this.jwtHelperService.decodeToken(token.token);
+
+    let roles: string[] =
+      decodedToken[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ];
+
+    return roles ? roles.includes(role) : false;
   }
 }
