@@ -34,6 +34,7 @@ import { PaymentSuccessComponent } from "./components/payment-success/payment-su
 import { AdminComponent } from "./components/admin/admin.component";
 import { JWT_OPTIONS } from "@auth0/angular-jwt";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { BrandManagerComponent } from "./components/admin/brand-manager/brand-manager.component";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
     PaymentComponent,
     PaymentSuccessComponent,
     AdminComponent,
+    BrandManagerComponent,
   ],
   imports: [
     BrowserModule,

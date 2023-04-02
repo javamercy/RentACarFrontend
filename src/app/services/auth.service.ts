@@ -74,18 +74,22 @@ export class AuthService {
     return this.localStorageService.get("token") ? true : false;
   }
 
-  hasRole(role: string) {
+  hasRole(role: string, userId: number) {
     let token: TokenModel = this.getToken();
 
     if (!token) return false;
 
     let decodedToken = this.jwtHelperService.decodeToken(token.token);
+    let id =
+      +decodedToken[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      ];
 
     let roles: string[] =
       decodedToken[
         "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
       ];
 
-    return roles ? roles.includes(role) : false;
+    return roles ? roles.includes(role) && userId === id : false;
   }
 }

@@ -18,7 +18,6 @@ import { LocalStorageService } from "src/app/services/localStorage.service";
 export class NavbarComponent implements OnInit {
   user: User;
   profileIcon: IconDefinition = faUserCircle;
-  chevronIcon: IconDefinition = faChevronDown;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -35,18 +34,13 @@ export class NavbarComponent implements OnInit {
     this.user = this.localStorageService.get("user");
   }
 
-  changeChevron() {
-    this.chevronIcon =
-      this.chevronIcon.icon == faChevronDown.icon ? faChevronUp : faChevronDown;
-  }
-
   signout() {
     this.authService.signout();
     this.router.navigate(["/login"]).then((bool) => bool && location.reload());
   }
 
   isAuthorized() {
-    this.authService.isAuthenticated;
+    this.authService.isAuthenticated();
   }
 
   collapseNavbar() {
@@ -66,7 +60,9 @@ export class NavbarComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return this.authService.hasRole("admin");
+    let user: User = this.localStorageService.get("user");
+
+    return user ? this.authService.hasRole("admin", user.id) : false;
   }
 
   log(any: any) {

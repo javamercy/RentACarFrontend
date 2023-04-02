@@ -1,0 +1,43 @@
+<ng-container *ngIf="brands">
+  <div class="w-75 mx-auto">
+    <h4 class="bg-black mx-auto text-light text-center p-3 my-4 rounded">
+      Brands
+    </h4>
+    <table class="table table-dark table-hover text-light table-mdmx-auto">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let brand of brands">
+          <td class="align-middle">{{ brand.id }}</td>
+          <td class="align-middle">{{ brand.name }}</td>
+          <td class="text-end">
+            <button
+              type="button"
+              class="btn btn-sm btn-warning"
+              routerLink="update/{{ brand.id }}"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-danger ms-2"
+              (click)="delete(brand)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-end">
+      <button type="button" class="btn btn-success px-5" routerLink="add">
+        ADD
+      </button>
+    </div>
+  </div>
+</ng-container>

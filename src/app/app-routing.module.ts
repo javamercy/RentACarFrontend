@@ -47,18 +47,16 @@ const routes: Routes = [
   },
 
   {
-    path: "admin",
+    path: "admin/management",
     component: AdminComponent,
     children: [
       {
-        path: "brand/manager",
+        path: "brands",
         component: BrandManagerComponent,
-        data: { role: "admin" },
       },
       {
-        path: "brand/add",
+        path: "brands/add",
         component: BrandAddComponent,
-        data: { role: "admin" },
       },
     ],
   },

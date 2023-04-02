@@ -2,9 +2,7 @@
   class="navbar navbar-expand-lg navbar-dark my-bg-gradient-dark border-bottom"
 >
   <div class="container-fluid p-3">
-    <a role="button" class="navbar-brand h1 mb-0"
-      >Dream Car <span *ngIf="isAdmin()" class="text-danger">(Admin)</span></a
-    >
+    <a role="button" class="navbar-brand h1 mb-0">Dream Car</a>
     <button
       type="button"
       class="navbar-toggler"
@@ -22,12 +20,41 @@
         >
           Home
         </a>
-        <a
-          role="button"
-          class="nav-item nav-link underlined text-danger"
-          *ngIf="isAdmin()"
-          >Managment</a
-        >
+        <div class="dropdown">
+          <a
+            role="button"
+            class="nav-item underlined nav-link dropdown-toggle text-danger"
+            *ngIf="isAdmin()"
+            data-bs-toggle="dropdown"
+          >
+            Managment
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li
+              class="dropdown-item text-light"
+              role="button"
+              routerLink="/admin/management/cars"
+            >
+              Car Management
+            </li>
+            <div class="dropdown-divider border-light"></div>
+            <li
+              class="dropdown-item text-light"
+              role="button"
+              routerLink="/admin/management/colors"
+            >
+              Color Management
+            </li>
+            <div class="dropdown-divider border-light"></div>
+            <li
+              class="dropdown-item text-light"
+              role="button"
+              routerLink="/admin/management/brands"
+            >
+              Brand Management
+            </li>
+          </ul>
+        </div>
       </div>
       <ng-template [ngTemplateOutlet]="navbarRight"></ng-template>
     </div>
@@ -51,10 +78,7 @@
   </ng-container>
   <ng-container *ngIf="user">
     <div class="navbar-nav justify-self-end">
-      <div
-        class="nav-item text-light dropdown underlined me-2"
-        (click)="changeChevron()"
-      >
+      <div class="nav-item text-light dropdown dropdown-toggle underlined me-2">
         <a
           role="button"
           class="text-light"
@@ -62,8 +86,8 @@
           data-bs-auto-close="inside"
         >
           <fa-icon [icon]="profileIcon" class="me-1"></fa-icon>
-          {{ user.firstName }} {{ user.lastName }}
-          <fa-icon [icon]="chevronIcon" class="ms-1"></fa-icon>
+          {{ user.firstName }} {{ user.lastName
+          }}<span *ngIf="isAdmin()" class="text-danger mx-1">(Admin)</span>
         </a>
 
         <ul
