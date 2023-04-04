@@ -1,0 +1,33 @@
+<div class="card bg-transparent w-50 mx-auto my-5 text-light" *ngIf="brand">
+  <div class="card-header">
+    <h5 class="title py-2 text-center text-warning mb-0">Brand Update Form</h5>
+  </div>
+
+  <form [formGroup]="brandUpdateForm">
+    <div class="form-group text-center mx-5">
+      <label for="name" class="my-3">Id</label>
+      <input
+        type="number"
+        class="form-control bg-secondary mx-auto text-light"
+        formControlName="id"
+      />
+    </div>
+    <div class="form-group text-center mx-5">
+      <label for="name" class="my-3">Name</label>
+      <input
+        type="text"
+        class="form-control bg-secondary mx-auto text-light"
+        formControlName="name"
+      />
+    </div>
+    <div class="text-center mt-5">
+      <div
+        class="btn btn-warning py-1 px-5"
+        (click)="update()"
+        [class.disabled]="isUpdateButtonDisabled()"
+      >
+        UPDATE
+      </div>
+    </div>
+  </form>
+</div>

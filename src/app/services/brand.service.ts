@@ -28,4 +28,13 @@ export class BrandService {
     let newUrl: string = this.apiUrl + "/brands/delete";
     return this.httpClient.post<ResponseModel>(newUrl, brand);
   }
+  add(brand: Brand): Observable<ResponseModel> {
+    let newUrl: string = this.apiUrl + "/brands/add";
+    return this.httpClient.post<ResponseModel>(newUrl, brand);
+  }
+
+  update(brand: Brand): Observable<ResponseModel> {
+    let newUrl: string = this.apiUrl + "/brands/update";
+    return this.httpClient.post<ResponseModel>(newUrl, brand);
+  }
 }

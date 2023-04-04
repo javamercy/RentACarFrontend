@@ -15,6 +15,7 @@ import { PaymentComponent } from "./components/payment/payment.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { LoginGuard } from "./guards/login.guard";
 import { PaymentGuard } from "./guards/payment.guard";
+import { BrandUpdateComponent } from "./components/admin/brand-update/brand-update.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
@@ -57,6 +58,11 @@ const routes: Routes = [
       {
         path: "brands/add",
         component: BrandAddComponent,
+      },
+
+      {
+        path: "brands/update/:brandId",
+        component: BrandUpdateComponent,
       },
     ],
   },
