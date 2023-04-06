@@ -6,7 +6,6 @@ import { BrandManagerComponent } from "./components/admin/brand-manager/brand-ma
 import { AuthComponent } from "./components/auth/auth.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { SingupComponent } from "./components/auth/singup/singup.component";
-import { CarAddComponent } from "./components/car-add/car-add.component";
 import { CarDetailComponent } from "./components/car-detail/car-detail.component";
 import { CarComponent } from "./components/car/car.component";
 import { HomeComponent } from "./components/home/home.component";
@@ -16,6 +15,9 @@ import { ProfileComponent } from "./components/profile/profile.component";
 import { LoginGuard } from "./guards/login.guard";
 import { PaymentGuard } from "./guards/payment.guard";
 import { BrandUpdateComponent } from "./components/admin/brand-update/brand-update.component";
+import { CarManagerComponent } from "./components/admin/car-manager/car-manager.component";
+import { CarUpdateComponent } from "./components/admin/car-update/car-update.component";
+import { CarAddComponent } from "./components/admin/car-add/car-add.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
@@ -63,6 +65,18 @@ const routes: Routes = [
       {
         path: "brands/update/:brandId",
         component: BrandUpdateComponent,
+      },
+      {
+        path: "cars",
+        component: CarManagerComponent,
+      },
+      {
+        path: "cars/add",
+        component: CarAddComponent,
+      },
+      {
+        path: "cars/update/:carId",
+        component: CarUpdateComponent,
       },
     ],
   },

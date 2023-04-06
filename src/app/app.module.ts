@@ -19,7 +19,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FilterColorPipe } from "./pipes/filter-color.pipe";
 import { FilterBrandPipe } from "./pipes/filter-brand.pipe";
 
-import { CarAddComponent } from "./components/car-add/car-add.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { SingupComponent } from "./components/auth/singup/singup.component";
@@ -36,7 +35,10 @@ import { JWT_OPTIONS } from "@auth0/angular-jwt";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { BrandManagerComponent } from "./components/admin/brand-manager/brand-manager.component";
 import { BrandAddComponent } from "./components/admin/brand-add/brand-add.component";
-import { BrandUpdateComponent } from './components/admin/brand-update/brand-update.component';
+import { BrandUpdateComponent } from "./components/admin/brand-update/brand-update.component";
+import { CarManagerComponent } from "./components/admin/car-manager/car-manager.component";
+import { CarUpdateComponent } from "./components/admin/car-update/car-update.component";
+import { CarAddComponent } from "./components/admin/car-add/car-add.component";
 
 @NgModule({
   declarations: [
@@ -64,6 +66,9 @@ import { BrandUpdateComponent } from './components/admin/brand-update/brand-upda
     BrandManagerComponent,
     BrandAddComponent,
     BrandUpdateComponent,
+    CarManagerComponent,
+    CarUpdateComponent,
+    CarAddComponent,
   ],
   imports: [
     BrowserModule,

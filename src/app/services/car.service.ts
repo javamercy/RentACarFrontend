@@ -80,4 +80,10 @@ export class CarService {
 
     return this.httpClient.post<ResponseModel>(newUrl, car);
   }
+
+  delete(car: Car): Observable<ResponseModel> {
+    let newUrl: string = this.apiUrl + "/cars/delete";
+
+    return this.httpClient.post<ResponseModel>(newUrl, car);
+  }
 }

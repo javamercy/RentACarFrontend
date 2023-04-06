@@ -1,0 +1,112 @@
+<ng-container *ngIf="cars">
+  <div class="w-75 mx-auto">
+    <h4 class="bg-black mx-auto text-light py-1 text-center p-3 my-4 rounded">
+      Cars
+    </h4>
+    <table class="table table-dark table-hover text-light py-1 table-mdmx-auto">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Color Id</th>
+          <th scope="col">Brand Id</th>
+          <th scope="col">Description</th>
+          <th scope="col">Daily Price</th>
+          <th scope="col">ModelYear</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let car of cars">
+          <td class="align-middle">{{ car.id }}</td>
+          <td class="align-middle">{{ car.colorId }}</td>
+          <td class="align-middle">{{ car.brandId }}</td>
+          <td class="align-middle">{{ car.description }}</td>
+          <td class="align-middle">{{ car.dailyPrice | currency }}</td>
+          <td class="align-middle">{{ car.modelYear }}</td>
+          <td class="text-end">
+            <button
+              type="button"
+              class="btn btn-sm btn-warning"
+              routerLink="update/{{ car.id }}"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-danger ms-2"
+              (click)="carToDelete = car"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmModal"
+            >
+              Delete
+            </button>
+            <ng-container
+              [ngTemplateOutlet]="confirmModal"
+              [ngTemplateOutletContext]="{ car: carToDelete }"
+            ></ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-end">
+      <button type="button" class="btn btn-success px-5" routerLink="add">
+        ADD
+      </button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #confirmModal let-car="car">
+  <div
+    class="modal fade"
+    id="confirmModal"
+    tabindex="-1"
+    aria-labelledby="confirmModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark">
+        <div class="modal-header justify-content-center">
+          <h1 class="modal-title fs-5" id="confirmModalLabel">
+            Confirm Delete Car
+          </h1>
+        </div>
+        <div class="modal-body text-center">
+          <ul class="list-group-flush">
+            <li class="list-group-item bg-transparent text-light py-1">
+              <fa-icon [icon]="warningIcon"></fa-icon> Are you sure about
+              deleting this car?
+            </li>
+            <li class="list-group-item bg-transparent text-light py-1">
+              <fa-icon [icon]="warningIcon"></fa-icon> Action cannot be undone
+              later!
+            </li>
+            <li class="list-group-item bg-transparent text-light py-1">
+              <fa-icon [icon]="warningIcon"></fa-icon> All the images belonging
+              this car will also be deleted!
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="delete(car)"
+              data-bs-dismiss="modal"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
 import { Brand } from "src/app/models/brand";
 import { Car } from "src/app/models/car";
 import { Color } from "src/app/models/color";
 import { BrandService } from "src/app/services/brand.service";
 import { CarService } from "src/app/services/car.service";
+import { CarImageService } from "src/app/services/carImage.service";
 import { ColorService } from "src/app/services/color.service";
 
 @Component({
@@ -16,37 +18,27 @@ export class CarAddComponent implements OnInit {
   carAddForm: FormGroup;
   colors: Color[];
   brands: Brand[];
-  years: number[];
 
   constructor(
     private carService: CarService,
     private colorService: ColorService,
-    private brandService: BrandService
+    private brandService: BrandService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.getBrands();
     this.getColors();
-    this.getYears();
-
-    this.carAddForm = new FormGroup({
-      brandId: new FormControl("", Validators.required),
-      colorId: new FormControl("", Validators.required),
-      description: new FormControl("", Validators.required),
-      modelYear: new FormControl("", Validators.required),
-      dailyPrice: new FormControl("", Validators.required),
-    });
+    this.getBrands();
+    this.createCarAddForm();
   }
 
-  add() {
-    if (this.carAddForm.invalid) console.log(this.carAddForm.value);
-
-    let carToAdd: Car = this.carAddForm.value as Car;
-
-    this.carService.add(carToAdd).subscribe({
-      next: (response) => console.log(response.message),
-
-      error: (err) => console.error(err),
+  createCarAddForm() {
+    this.carAddForm = new FormGroup({
+      colorId: new FormControl("", Validators.required),
+      brandId: new FormControl("", Validators.required),
+      description: new FormControl("", Validators.required),
+      dailyPrice: new FormControl("", Validators.required),
+      modelYear: new FormControl("", Validators.required),
     });
   }
 
@@ -55,8 +47,7 @@ export class CarAddComponent implements OnInit {
       next: (response) => {
         this.colors = response.data;
       },
-
-      error: (err) => console.error(err),
+      error: (error) => console.error(error),
     });
   }
 
@@ -65,16 +56,24 @@ export class CarAddComponent implements OnInit {
       next: (response) => {
         this.brands = response.data;
       },
-
-      error: (err) => console.error(err),
+      error: (error) => console.error(error),
     });
   }
 
-  getYears() {
-    const date = new Date();
-    this.years = [];
-    for (let i = 2000; i <= date.getFullYear(); i++) {
-      this.years.push(i);
-    }
+  add() {
+    if (this.carAddForm.invalid) return;
+
+    let car: Car = Object.assign({}, this.carAddForm.value);
+
+    this.carService.add(car).subscribe({
+      next: (response) => {
+        this.toastrService.success("New Car was added.", "SUCCESS");
+      },
+      error: (error) => console.error(error),
+    });
+  }
+
+  log(any: any) {
+    console.log(any);
   }
 }
