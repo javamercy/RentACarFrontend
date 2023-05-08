@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ChangePasswordModel } from "../models/changePasswordModel";
@@ -79,7 +79,8 @@ export class AuthService {
 
     if (!token) return false;
 
-    let decodedToken = this.jwtHelperService.decodeToken(token.token);
+    let decodedToken = this.jwtHelperService.decodeToken(token.token);;
+
     let id =
       +decodedToken[
         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"

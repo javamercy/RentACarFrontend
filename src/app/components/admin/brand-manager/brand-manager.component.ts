@@ -19,7 +19,7 @@ export class BrandManagerComponent implements OnInit {
     this.brandService.getAll().subscribe({
       next: (response) => {
         this.brands = response.data;
-        console.log(this.brands);
+
       },
       error: (error) => {
         console.log(error);

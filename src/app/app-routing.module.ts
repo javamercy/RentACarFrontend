@@ -18,6 +18,9 @@ import { BrandUpdateComponent } from "./components/admin/brand-update/brand-upda
 import { CarManagerComponent } from "./components/admin/car-manager/car-manager.component";
 import { CarUpdateComponent } from "./components/admin/car-update/car-update.component";
 import { CarAddComponent } from "./components/admin/car-add/car-add.component";
+import { ColorManagerComponent } from "./components/admin/color-manager/color-manager.component";
+import { ColorAddComponent } from "./components/admin/color-add/color-add.component";
+import { ColorUpdateComponent } from "./components/admin/color-update/color-update.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
@@ -77,6 +80,18 @@ const routes: Routes = [
       {
         path: "cars/update/:carId",
         component: CarUpdateComponent,
+      },
+      {
+        path: "colors",
+        component: ColorManagerComponent,
+      },
+      {
+        path: "colors/add",
+        component: ColorAddComponent,
+      },
+      {
+        path: "colors/update/:colorId",
+        component: ColorUpdateComponent,
       },
     ],
   },
