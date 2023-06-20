@@ -1,1 +1,111 @@
-<p>car-update works!</p>
+<ng-container *ngIf="carToUpdate">
+  <div class="card bg-transparent w-50 mx-auto my-5 text-light">
+    <div class="card-header">
+      <h5 class="title py-2 text-center text-warning mb-0">Car Update Form</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="carUpdateForm" class="my-3">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group text-center">
+              <label for="id" class="my-3">Id</label>
+              <input
+                class="form-control bg-dark text-white"
+                type="number"
+                formControlName="id"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group text-center">
+              <label for="colorId" class="my-3">Color</label>
+              <select
+                class="form-select bg-dark text-white"
+                id="color"
+                formControlName="colorId"
+              >
+                <option *ngFor="let color of colors" [ngValue]="color.id">
+                  {{ color.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <hr class="hr" />
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group text-center">
+              <label for="brandId" class="my-3">Brand</label>
+              <select
+                class="form-select bg-dark text-white"
+                id="brand"
+                formControlName="brandId"
+              >
+                <option *ngFor="let brand of brands" [ngValue]="brand.id">
+                  {{ brand.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group text-center">
+              <label for="modelId" class="my-3">Model</label>
+              <select
+                class="form-select bg-dark text-white"
+                id="model"
+                formControlName="modelId"
+              >
+                <option *ngFor="let model of models" [ngValue]="model.id">
+                  {{ model.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <hr class="hr" />
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group text-center">
+              <label for="description" class="my-3">Description</label>
+              <input
+                type="text"
+                class="form-control bg-dark text-white"
+                formControlName="description"
+                id="description"
+              />
+            </div>
+          </div>
+        </div>
+        <hr class="hr" />
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group text-center">
+              <label for="dailyPrice" class="my-3">Daily Price</label>
+              <input
+                type="number"
+                class="form-control bg-dark text-white"
+                formControlName="dailyPrice"
+                id="dailyPrice"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group text-center">
+              <label for="modelYear" class="my-3">Model Year</label>
+              <input
+                type="number"
+                class="form-control bg-dark text-white"
+                formControlName="modelYear"
+                id="modelYear"
+              />
+            </div>
+          </div>
+        </div>
+        <hr class="hr" />
+        <div class="text-center mt-5">
+          <div class="btn btn-warning py-1 px-5" (click)="update()">UPDATE</div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>

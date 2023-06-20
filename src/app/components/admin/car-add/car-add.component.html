@@ -26,9 +26,27 @@
               class="form-select bg-dark text-white"
               id="brand"
               formControlName="brandId"
+              (change)="setSelectedBrandId(); getModels()"
             >
               <option *ngFor="let brand of brands" [ngValue]="brand.id">
                 {{ brand.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <hr class="hr" />
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="form-group text-center">
+            <label for="modelId" class="my-3">Model</label>
+            <select
+              class="form-select bg-dark text-white"
+              id="model"
+              formControlName="modelId"
+            >
+              <option *ngFor="let model of models" [ngValue]="model.id">
+                {{ model.name }}
               </option>
             </select>
           </div>
@@ -80,5 +98,3 @@
     </form>
   </div>
 </div>
-
-

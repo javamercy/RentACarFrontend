@@ -41,6 +41,11 @@ import { CarAddComponent } from "./components/admin/car-add/car-add.component";
 import { ColorManagerComponent } from './components/admin/color-manager/color-manager.component';
 import { ColorAddComponent } from './components/admin/color-add/color-add.component';
 import { ColorUpdateComponent } from './components/admin/color-update/color-update.component';
+import { CarImageManagerComponent } from './components/admin/car-images-manager/car-image-manager.component';
+import { CarImageAddComponent } from './components/admin/car-images-add/car-image-add.component';
+import { ModelManagerComponent } from './components/admin/model-manager/model-manager.component';
+import { ModelAddComponent } from './components/admin/model-add/model-add.component';
+import { ModelUpdateComponent } from './components/admin/model-update/model-update.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +79,11 @@ import { ColorUpdateComponent } from './components/admin/color-update/color-upda
     ColorManagerComponent,
     ColorAddComponent,
     ColorUpdateComponent,
+    CarImageManagerComponent,
+    CarImageAddComponent,
+    ModelManagerComponent,
+    ModelAddComponent,
+    ModelUpdateComponent,
   ],
   imports: [
     BrowserModule,

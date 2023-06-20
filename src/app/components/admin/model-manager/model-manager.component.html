@@ -1,32 +1,34 @@
-<ng-container *ngIf="brands">
+<ng-container *ngIf="models">
   <div class="w-75 mx-auto">
     <h4 class="bg-black mx-auto text-light text-center p-3 my-4 rounded">
-      Brands
+      Models
     </h4>
     <table class="table table-dark table-hover text-light table-md mx-auto">
       <thead>
         <tr>
           <th scope="col">Id</th>
+          <th scope="col">Brand Id</th>
           <th scope="col">Name</th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let brand of brands">
-          <td class="align-middle">{{ brand.id }}</td>
-          <td class="align-middle">{{ brand.name }}</td>
+        <tr *ngFor="let model of models">
+          <td class="align-middle">{{ model.id }}</td>
+          <td class="align-middle">{{ model.brandId }}</td>
+          <td class="align-middle">{{ model.name }}</td>
           <td class="text-end">
             <button
               type="button"
               class="btn btn-sm btn-warning"
-              routerLink="update/{{ brand.id }}"
+              routerLink="update/{{ model.id }}"
             >
               Edit
             </button>
             <button
               type="button"
               class="btn btn-sm btn-danger ms-2"
-              (click)="delete(brand)"
+              (click)="delete(model)"
             >
               Delete
             </button>

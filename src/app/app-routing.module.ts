@@ -21,6 +21,10 @@ import { CarAddComponent } from "./components/admin/car-add/car-add.component";
 import { ColorManagerComponent } from "./components/admin/color-manager/color-manager.component";
 import { ColorAddComponent } from "./components/admin/color-add/color-add.component";
 import { ColorUpdateComponent } from "./components/admin/color-update/color-update.component";
+import { ModelManagerComponent } from "./components/admin/model-manager/model-manager.component";
+import { ModelAddComponent } from "./components/admin/model-add/model-add.component";
+import { ModelUpdateComponent } from "./components/admin/model-update/model-update.component";
+import { CarImageManagerComponent } from "./components/admin/car-images-manager/car-image-manager.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
@@ -82,6 +86,14 @@ const routes: Routes = [
         component: CarUpdateComponent,
       },
       {
+        path: "car-image",
+        component: CarImageManagerComponent,
+      },
+      {
+        path: "car-images/add",
+        component: CarAddComponent,
+      },
+      {
         path: "colors",
         component: ColorManagerComponent,
       },
@@ -92,6 +104,18 @@ const routes: Routes = [
       {
         path: "colors/update/:colorId",
         component: ColorUpdateComponent,
+      },
+      {
+        path: "models",
+        component: ModelManagerComponent,
+      },
+      {
+        path: "models/add",
+        component: ModelAddComponent,
+      },
+      {
+        path: "models/update/:modelId",
+        component: ModelUpdateComponent,
       },
     ],
   },

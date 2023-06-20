@@ -4,10 +4,12 @@ import { ToastrService } from "ngx-toastr";
 import { Brand } from "src/app/models/brand";
 import { Car } from "src/app/models/car";
 import { Color } from "src/app/models/color";
+import { Model } from "src/app/models/model";
 import { BrandService } from "src/app/services/brand.service";
 import { CarService } from "src/app/services/car.service";
 import { CarImageService } from "src/app/services/carImage.service";
 import { ColorService } from "src/app/services/color.service";
+import { ModelService } from "src/app/services/model.service";
 
 @Component({
   selector: "app-car-add",
@@ -18,11 +20,14 @@ export class CarAddComponent implements OnInit {
   carAddForm: FormGroup;
   colors: Color[];
   brands: Brand[];
+  models: Model[];
+  selectedBrandId: number;
 
   constructor(
     private carService: CarService,
     private colorService: ColorService,
     private brandService: BrandService,
+    private modelService: ModelService,
     private toastrService: ToastrService
   ) {}
 
@@ -36,6 +41,10 @@ export class CarAddComponent implements OnInit {
     this.carAddForm = new FormGroup({
       colorId: new FormControl("", Validators.required),
       brandId: new FormControl("", Validators.required),
+      modelId: new FormControl(
+        { disabled: true, value: "" },
+        Validators.required
+      ),
       description: new FormControl("", Validators.required),
       dailyPrice: new FormControl("", Validators.required),
       modelYear: new FormControl("", Validators.required),
@@ -60,6 +69,16 @@ export class CarAddComponent implements OnInit {
     });
   }
 
+  getModels() {
+    this.modelService.getAllByBrandId(this.selectedBrandId).subscribe({
+      next: (response) => {
+        this.models = response.data;
+        this.enableSelectModel();
+      },
+      error: (error) => console.error(error),
+    });
+  }
+
   add() {
     if (this.carAddForm.invalid) return;
 
@@ -73,7 +92,15 @@ export class CarAddComponent implements OnInit {
     });
   }
 
-  log(any: any) {
-    console.log(any);
+  setSelectedBrandId() {
+    this.selectedBrandId = this.carAddForm.controls["brandId"].value;
+  }
+
+  enableSelectModel() {
+    if (this.models.length > 0) {
+      this.carAddForm.controls["modelId"].enable();
+    } else {
+      this.carAddForm.controls["modelId"].disable();
+    }
   }
 }
